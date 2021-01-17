@@ -1,4 +1,5 @@
-<?php require_once __DIR__.'/scripts.php';?>
+<?php require_once 'scripts.php';
+alerts(); ?>
 </body>
 
 </html>
