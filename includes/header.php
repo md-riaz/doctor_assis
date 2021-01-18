@@ -1,4 +1,4 @@
-<?php require_once '../config/functions.php'; ?>
+<?php require_once dirname(__DIR__) . '/config/functions.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 

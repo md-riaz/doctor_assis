@@ -30,6 +30,13 @@ function goback()
   exit;
 }
 
+// redirect to another page
+function redirect($path)
+{
+  header("location: $path");
+  exit;
+}
+
 // alert function
 function setAlert($type, $msg)
 {
@@ -50,14 +57,88 @@ function alerts()
 }
 
 // register user 
-function register($name, $email, $password, $number, $gender, $age, $occupation, $address)
+function register()
 {
   global $con, $timestamp;
-  $password = password_hash($password, PASSWORD_DEFAULT);
+  $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
   $sql = "INSERT INTO patient (name, email, password, age, gender, occupation, address, number, created_at) 
-          VALUES ('$name', '$email','$password','$age','$gender','$occupation','$address','$number', '$timestamp')";
+          VALUES ('$_POST[name]', '$_POST[email]','$_POST[password]','$_POST[age]','$_POST[gender]','$_POST[occupation]','$_POST[address]','$_POST[number]', '$timestamp')";
 
   $reg = $con->query($sql);
 
   return $reg ? true : false;
+}
+
+//user login
+function userLogin()
+{
+  global $con, $group;
+  $sql = "SELECT * FROM patient WHERE email = '$_POST[email]'";
+  $result = $con->query($sql);
+
+  if ($result->num_rows > 0) {
+    $user = $result->fetch_array();
+
+    if (password_verify($_POST['password'], $user['password'])) {
+      $_SESSION['login'] = true;
+      $_SESSION['name'] = $user['name'];
+      $_SESSION['email'] = $user['email'];
+      $_SESSION['group_id'] = 0;
+      $_SESSION['access'] = $group[$_SESSION['group_id']];
+      return true;
+    } else {
+      setAlert('danger', 'Wrong password');
+    }
+  } else {
+    setAlert('danger', 'No user found with this email.');
+  }
+
+  return false;
+}
+
+//admin login
+function adminLogin()
+{
+  global $con, $group;
+  $sql = "SELECT * FROM user WHERE email = '$_POST[email]'";
+  $result = $con->query($sql);
+
+  if ($result->num_rows > 0) {
+    $user = $result->fetch_array();
+
+    if (password_verify($_POST['password'], $user['password'])) {
+      $_SESSION['login'] = true;
+      $_SESSION['name'] = $user['name'];
+      $_SESSION['email'] = $user['email'];
+      $_SESSION['group_id'] = $user['group_id'];
+      $_SESSION['access'] = $group[$_SESSION['group_id']];
+      return true;
+    } else {
+      setAlert('danger', 'Wrong password');
+    }
+  } else {
+    setAlert('danger', 'No user found with this email.');
+  }
+
+  return false;
+}
+
+// logout 
+function logout()
+{
+  session_unset();
+  session_destroy();
+  redirect('../login/');
+}
+
+function checkLogin()
+{
+  if (!isset($_SESSION['login'])) {
+    logout();
+    die();
+  }
+}
+
+if (isset($_POST['logout'])) {
+  logout();
 }
