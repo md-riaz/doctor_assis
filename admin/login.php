@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   if ($validated && adminLogin()) {
-    redirect('index.php');
+    Redirect("index.php");
   }
 }
 

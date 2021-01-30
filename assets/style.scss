@@ -9,6 +9,13 @@
    background-color: var(--primary);
    border-color: var(--primary);
 }
+.text-primary {
+   color: var(--primary) !important;
+}
+
+.bg-primary {
+   background-color: var(--primary) !important;
+}
 body {
    font-family: 'Poppins', sans-serif;
 }
@@ -35,9 +42,14 @@ nav .logo {
    display: flex;
    align-items: center;
 }
-.main_list {
+
    h6,
    p {
       margin: 0;
    }
+
+
+.reg_bg, .login_bg {
+   min-height: 100vh;
+   background-size: cover;
 }

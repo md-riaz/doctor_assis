@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2d3dcfd7-f162-4b76-9224-0362116ec3f0" name="doc@alpha786" url="http://doc.dev.alpha.net.bd">
+        <fileTransfer rootFolder="/public_html" host="doc.dev.alpha.net.bd" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

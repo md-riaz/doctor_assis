@@ -1,2 +1,62 @@
-:root{--primary: #1a77fc}.text-primary{color:var(--primary) !important}.btn-primary{background-color:var(--primary);border-color:var(--primary)}body{font-family:'Poppins', sans-serif}#removeAlert{width:350px;position:absolute;top:20px;right:20px}nav .logo{height:40px;background:#e6eeff;width:200px;border-radius:50px;color:#1a77fc;display:-ms-grid;display:grid;place-content:center}.hero_section{background-size:cover;background-position:center;height:100vh;overflow:hidden;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center}.main_list h6,.main_list p{margin:0}
+:root {
+  --primary: #1a77fc;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+#removeAlert {
+  width: 350px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+nav .logo {
+  height: 40px;
+  background: #e6eeff;
+  width: 200px;
+  border-radius: 50px;
+  color: #1a77fc;
+  display: grid;
+  place-content: center;
+}
+
+.hero_section {
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+h6,
+p {
+  margin: 0;
+}
+
+.reg_bg, .login_bg {
+  min-height: 100vh;
+  background-size: cover;
+}
+
 /*# sourceMappingURL=style.css.map */
