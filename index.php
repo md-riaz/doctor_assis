@@ -10,7 +10,6 @@ require_once __DIR__ . '/includes/header.php';
         <a class="navbar-brand" href="/">
           <div class="logo">doc.assistant</div>
         </a>
-          <a class="btn btn-outline-light" href="admin/login.php">Administrator</a>
       </div>
     </nav>
     <div class="hero_section" style="background-image: url('assets/img/bg.png')">

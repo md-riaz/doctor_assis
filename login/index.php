@@ -15,11 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if ($validated && userLogin()) {
+    if ($validated && Login()) {
         Redirect("../user/");
     }
 }
-
 ?>
     <div class="container-fluid login_bg" style="background-image:url('../assets/img/login_bg.jpg');">
         <div class="row">
