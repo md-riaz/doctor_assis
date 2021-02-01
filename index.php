@@ -7,7 +7,7 @@ require_once __DIR__ . '/includes/header.php';
     <!-- Just an image -->
     <nav class="navbar navbar-light position-fixed">
       <div class="container">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="<?= SITE_URL ?>">
           <div class="logo">doc.assistant</div>
         </a>
       </div>
@@ -19,8 +19,8 @@ require_once __DIR__ . '/includes/header.php';
             <h1 class="text-uppercase text-primary">Easy & innovative way to set an appointment
               today</h1>
             <div class="d-grid gap-2 d-md-block mt-4">
-              <a href="login/" class="btn btn-outline-primary px-4 me-3">Login</a>
-              <a href="registration/" class="btn btn-primary px-4">Register</a>
+              <a href="<?= SITE_URL ?>/login/" class="btn btn-outline-primary px-4 me-3">Login</a>
+              <a href="<?= SITE_URL ?>/registration/" class="btn btn-primary px-4">Register</a>
             </div>
           </div>
           <div class="header_right w-50 text-center">

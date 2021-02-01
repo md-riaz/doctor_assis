@@ -5,17 +5,11 @@ error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/config.php';
 session_start();
 // MySQL Connection
 $con = new mysqli(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE) or die("DB Error Occurred . $con->connect_error");
 
-// default timezone
-date_default_timezone_set("Asia/Dhaka");
-// timestamp format
-$timestamp = date("Y-m-d H:i:s");
-$gender = [0 => "female", 1 => "male"];
-$group = [0 => "patient", 1 => "admin", 2 => "compounder"];
 // get data from sql query
 function GetData($sql)
 {
@@ -96,11 +90,12 @@ function Login()
         $user = $result->fetch_array();
 
         if (password_verify($_POST['password'], $user['password'])) {
+
             $_SESSION['login'] = true;
             $_SESSION['id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['email'] = $user['email'];
-            $_SESSION['group_id'] = 0;
+            $_SESSION['group_id'] = $user['group_id'];
             $_SESSION['access'] = $group[$_SESSION['group_id']];
 
             return true;
@@ -114,6 +109,16 @@ function Login()
     return false;
 }
 
+// go to somewhere on authenticate
+function onAuthenticate()
+{
+    if ($_SESSION['group_id'] == 0) {
+        Redirect(SITE_URL . "/user/");
+    } elseif ($_SESSION['group_id'] == 1) {
+        Redirect(SITE_URL . "/admin/");
+    }
+
+}
 
 // logout 
 function logout()
@@ -136,13 +141,14 @@ if (isset($_POST['logout'])) {
     Redirect("../login/");
 }
 // redirect user to another page.. must be in double quote ""
-function Redirect(String $path)
+function Redirect(string $path)
 {
     header("location: $path");
 }
 
 // get user by id
-function getUserById(int $id) {
+function getUserById(int $id)
+{
     global $con;
     $rows = $con->query("SELECT * FROM user WHERE id = $id");
 
@@ -155,7 +161,8 @@ function getUserById(int $id) {
 
 
 // get user by id
-function getPatientByUserId(int $userId) {
+function getPatientByUserId(int $userId)
+{
     global $con;
     $rows = $con->query("SELECT * FROM patient WHERE uid = $userId");
 
@@ -171,9 +178,8 @@ function getPatientByUserId(int $userId) {
 function setSelfAppointment()
 {
     global $con, $timestamp;
-    $patient = getPatientByUserId($_SESSION['id']);
 
-    $con->query("INSERT INTO appointment (pid, date, time, created_at) VALUES ('$patient[id]', '$_POST[ap_date]', '$_POST[ap_time]', '$timestamp')");
+    $con->query("INSERT INTO appointment (uid, date, time, disease, created_at) VALUES ('$_SESSION[id]', '$_POST[ap_date]', '$_POST[ap_time]','$_POST[disease]', '$timestamp')");
 
     if ($con->affected_rows > 0) {
         return true;
@@ -193,9 +199,7 @@ function setOtherAppointment()
 
         $con->query("INSERT INTO patient (uid, name, age, gender, occupation, address, number, created_at) VALUES ('$_SESSION[id]', '$_POST[name]', '$_POST[age]', '$_POST[gender]', '$_POST[occupation]', '$_POST[address]', '$_POST[number]', '$timestamp')");
 
-        $last_id = $con->insert_id;
-
-        $con->query("INSERT INTO appointment (pid, date, time, created_at) VALUES ('$last_id', '$_POST[ap_date]', '$_POST[ap_time]', '$timestamp')");
+        $con->query("INSERT INTO appointment (uid, date, time, disease, created_at) VALUES ('$_SESSION[id]', '$_POST[ap_date]', '$_POST[ap_time]', '$_POST[disease]', '$timestamp')");
 
         $con->commit();
 

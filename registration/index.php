@@ -1,6 +1,9 @@
 <?php
 $pageTitle = "Home";
 require_once '../includes/header.php';
+if (isset($_SESSION['login'])) {
+    onAuthenticate();
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $err = [];
     $requiredFields = ['name', 'email', 'password', 'number', 'gender', 'age', 'occupation', 'address'];

@@ -1,3 +1,4 @@
+<?php date_default_timezone_set("Asia/Dhaka"); ?>
 <div class="modal-header">
     <h5 class="modal-title">Make an Appointment</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -20,13 +21,19 @@
                     <div class="mb-3">
                         <label for="appointment" class="form-label">Select a date</label>
                         <input name="ap_date" type="date" class="form-control" id="appointment" required
-                               value="<?= date('Y-m-d') ?>"
                                min="<?= date('Y-m-d') ?>">
                     </div>
                     <div class="mb-3">
                         <label for="time" class="form-label">Select time</label>
-                        <input name="ap_time" type="time" class="form-control" id="time" required>
+                        <input name="ap_time" type="time" class="form-control" id="time" required
+                               value="<?= date("H:i") ?>" min="09:00" max="19:00">
                     </div>
+
+                    <div class="mb-3">
+                        <label for="disease" class="form-label">About Disease</label>
+                        <textarea name="disease" id="disease" cols="30" rows="3" class="form-control" required></textarea>
+                    </div>
+
                     <div class="float-end">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="self_apply" class="btn btn-primary">Set</button>
@@ -38,9 +45,16 @@
             <div class="row">
                 <form action="" method="post">
 
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input name="name" type="text" class="form-control" id="name" required>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="name" class="form-label">Name</label>
+                            <input name="name" type="text" class="form-control" id="name" required>
+                        </div>
+
+                        <div class="mb-3 col-md-6">
+                            <label for="number" class="form-label">Number</label>
+                            <input name="number" type="text" class="form-control" id="number" required>
+                        </div>
                     </div>
 
                     <div class="row g-3">
@@ -91,6 +105,12 @@
                         <label for="time" class="form-label">Select time</label>
                         <input name="ap_time" type="time" class="form-control" id="time" required>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="disease" class="form-label">About Disease</label>
+                        <textarea name="disease" id="disease" cols="30" rows="3" class="form-control" required></textarea>
+                    </div>
+
                     <div class="float-end">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="other_apply" class="btn btn-primary">Set</button>

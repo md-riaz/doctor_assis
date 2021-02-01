@@ -11,6 +11,7 @@
 getAlerts(); ?>
 <script>
 function logout() {
+  sessionStorage.clear();
   $('#logout').submit();
 }
 </script>

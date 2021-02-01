@@ -1,6 +1,11 @@
 <?php
 $pageTitle = "Home";
 require_once dirname(__DIR__) . '/includes/header.php';
+
+if (isset($_SESSION['login'])) {
+    onAuthenticate();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $password = "";
     $err = [];
