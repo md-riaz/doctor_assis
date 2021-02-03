@@ -178,8 +178,8 @@ function getPatientByUserId(int $userId)
 function setSelfAppointment()
 {
     global $con, $timestamp;
-
-    $con->query("INSERT INTO appointment (uid, date, time, disease, created_at) VALUES ('$_SESSION[id]', '$_POST[ap_date]', '$_POST[ap_time]','$_POST[disease]', '$timestamp')");
+    $pid = getPatientByUserId($_SESSION['id']);
+    $con->query("INSERT INTO appointment (uid, pid, date, time, disease, created_at) VALUES ('$_SESSION[id]', '$pid[id]', '$_POST[ap_date]', '$_POST[ap_time]','$_POST[disease]', '$timestamp')");
 
     if ($con->affected_rows > 0) {
         return true;
@@ -199,7 +199,9 @@ function setOtherAppointment()
 
         $con->query("INSERT INTO patient (uid, name, age, gender, occupation, address, number, created_at) VALUES ('$_SESSION[id]', '$_POST[name]', '$_POST[age]', '$_POST[gender]', '$_POST[occupation]', '$_POST[address]', '$_POST[number]', '$timestamp')");
 
-        $con->query("INSERT INTO appointment (uid, date, time, disease, created_at) VALUES ('$_SESSION[id]', '$_POST[ap_date]', '$_POST[ap_time]', '$_POST[disease]', '$timestamp')");
+        $last_id = $con->insert_id;
+
+        $con->query("INSERT INTO appointment (uid, pid, date, time, disease, created_at) VALUES ('$_SESSION[id]', '$last_id', '$_POST[ap_date]', '$_POST[ap_time]', '$_POST[disease]', '$timestamp')");
 
         $con->commit();
 

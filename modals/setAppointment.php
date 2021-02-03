@@ -21,12 +21,12 @@
                     <div class="mb-3">
                         <label for="appointment" class="form-label">Select a date</label>
                         <input name="ap_date" type="date" class="form-control" id="appointment" required
-                               min="<?= date('Y-m-d') ?>">
+                               min="<?= date('Y-m-d', strtotime('+1 day')) ?>">
                     </div>
                     <div class="mb-3">
                         <label for="time" class="form-label">Select time</label>
                         <input name="ap_time" type="time" class="form-control" id="time" required
-                               value="<?= date("H:i") ?>" min="09:00" max="19:00">
+                                min="09:00" max="19:00">
                     </div>
 
                     <div class="mb-3">
@@ -99,11 +99,11 @@
                         <label for="appointment" class="form-label">Select a date</label>
                         <input name="ap_date" type="date" class="form-control" id="appointment" required
                                value="<?= date('Y-m-d') ?>"
-                               min="<?= date('Y-m-d') ?>">
+                               min="<?= date('Y-m-d', strtotime('+1 day')) ?>">
                     </div>
                     <div class="mb-3">
                         <label for="time" class="form-label">Select time</label>
-                        <input name="ap_time" type="time" class="form-control" id="time" required>
+                        <input name="ap_time" type="time" class="form-control" id="time" required min="09:00" max="19:00">
                     </div>
 
                     <div class="mb-3">
