@@ -73,4 +73,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+
 <?php require_once dirname(__DIR__) . '/includes/footer.php'; ?>

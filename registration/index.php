@@ -6,7 +6,7 @@ if (isset($_SESSION['login'])) {
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $err = [];
-    $requiredFields = ['name', 'email', 'password', 'number', 'gender', 'age', 'occupation', 'address'];
+    $requiredFields = ['ap_date','ap_time','disease','name', 'email', 'password', 'number', 'gender', 'age', 'occupation', 'address'];
     $validated = true;
     foreach ($requiredFields as $field) {
         if (isset($_POST[$field]) && $_POST[$field] <> "") {
@@ -38,13 +38,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="container mt-5 ">
             <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-8">
+                <div class="col-lg-8 col-md-6">
                     <div class="card">
                         <div class="card-header">
                             Registration
                         </div>
                         <div class="card-body">
                             <form method="post" action="">
+                                <div class="row g-3">
+                                    <div class="col mb-3">
+                                        <label for="appointment" class="form-label">Select a date</label>
+                                        <input name="ap_date" type="date" class="form-control" id="appointment" required
+                                               min="<?= date('Y-m-d', strtotime('+1 day')) ?>">
+                                    </div>
+                                    <div class="col mb-3">
+                                        <label for="time" class="form-label">Select time</label>
+                                        <input name="ap_time" type="time" class="form-control" id="time" required
+                                               min="09:00" max="19:00">
+                                        <div class="form-text">Appointment time is between 09:00 AM to 07:00PM</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="disease" class="form-label">About Disease</label>
+                                    <textarea name="disease" id="disease" cols="30" rows="3" class="form-control" required></textarea>
+                                </div>
                                 <div class="row g-3">
                                     <div class="mb-3 col">
                                         <label for="name" class="form-label">Full Name</label>
@@ -131,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label class="form-check-label" for="terms">I agrre to the terms &
                                         conditions</label>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Register</button>
+                                <button type="submit" class="btn btn-primary">Register & Set Appointment</button>
                             </form>
                         </div>
                     </div>

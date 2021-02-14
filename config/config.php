@@ -5,7 +5,7 @@ define('DB_PASSWORD', 'doc@786');
 define('DB_DATABASE', 'assist_doc');
 
 define('SITE_URL', 'http://doc.dev.alpha.net.bd');
-
+define('APP_NAME', 'Doctor Assistant');
 // default timezone
 date_default_timezone_set("Asia/Dhaka");
 // timestamp format

@@ -14,11 +14,10 @@ $con = new mysqli(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE) or die("DB
 function GetData($sql)
 {
     global $con;
-    $query = mysqli_query($con, $sql);
+    $query = $con->query($sql);
     $result = [];
-
     if ($query) {
-        while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+        while ($row = $query->fetch_assoc()) {
             $result[] = $row;
         }
     }
@@ -65,16 +64,23 @@ function register()
 
         $con->query("INSERT INTO user (email, password, group_id, created_at) VALUES ('$_POST[email]','$_POST[password]', '$default_gid', '$timestamp')");
 
-        $last_id = $con->insert_id;
+        $last_uid = $con->insert_id;
 
         $con->query("INSERT INTO patient (uid, name, age, gender, occupation, address, number, created_at) 
-          VALUES ('$last_id', '$_POST[name]', '$_POST[age]', '$_POST[gender]','$_POST[occupation]','$_POST[address]','$_POST[number]', '$timestamp')");
+          VALUES ('$last_uid', '$_POST[name]', '$_POST[age]', '$_POST[gender]','$_POST[occupation]','$_POST[address]','$_POST[number]', '$timestamp')");
+
+        $last_pid = $con->insert_id;
+
+        $con->query("INSERT INTO appointment (uid, pid, date, time, disease, created_at) 
+          VALUES ('$last_uid','$last_pid', '$_POST[ap_date]', '$_POST[ap_time]','$_POST[disease]', '$timestamp')");
 
         $con->commit();
 
         return true;
 
     } catch (Exception $e) {
+        $con->rollback();
+
         return false;
     }
 }
@@ -144,6 +150,7 @@ if (isset($_POST['logout'])) {
 function Redirect(string $path)
 {
     header("location: $path");
+    exit;
 }
 
 // get user by id
@@ -164,7 +171,7 @@ function getUserById(int $id)
 function getPatientByUserId(int $userId)
 {
     global $con;
-    $rows = $con->query("SELECT * FROM patient WHERE uid = $userId");
+    $rows = $con->query("SELECT * FROM patient WHERE uid = {$userId} LIMIT 1");
 
     if ($rows->num_rows > 0) {
         return $rows->fetch_array();

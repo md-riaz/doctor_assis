@@ -37,4 +37,13 @@ $(function () {
     $('.navbar-brand:first').on('click', function(){
         sessionStorage.clear();
     })
+
+    // scroll header
+    $(window).scroll(function(){
+        var sticky = $('.navbar'),
+            scroll = $(window).scrollTop();
+
+        if (scroll >= 100) sticky.addClass('nav-dark');
+        else sticky.removeClass('nav-dark');
+    });
 });
