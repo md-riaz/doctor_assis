@@ -12,16 +12,21 @@ require_once __DIR__ . '/includes/header.php';
                     </a>
                 </div>
             </nav>
-            <div class="hero_section" style="background-image: url('assets/img/bg.png')">
+            <div class="hero_section" style="background-image: url('<?= SITE_URL . '/assets/img/bg.png' ?>')">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <h1 class="text-uppercase text-primary">Easy & innovative way to set an appointment
                                 today</h1>
                             <div class="d-grid gap-2 d-md-block mt-4">
-                                <a href="<?= SITE_URL ?>/login/" class="btn btn-outline-primary px-4 me-md-3">Login</a>
-                                <a href="<?= SITE_URL ?>/registration/" class="btn btn-primary px-4">Make an
-                                    Appointment</a>
+								<?php if (!isset($_SESSION['login'])): ?>
+                                    <a href="<?= SITE_URL ?>/login/"
+                                       class="btn btn-outline-primary px-4 me-md-3">Login</a>
+                                    <a href="<?= SITE_URL ?>/registration/" class="btn btn-primary px-4">Make an
+                                        Appointment</a>
+								<?php else: ?>
+                                    <a href="<?= onAuthenticate($url = true) ?>" class="btn btn-outline-primary px-4 me-md-3">Dashboard</a>
+								<?php endif; ?>
                             </div>
                         </div>
                         <div class="col-md-6 d-none d-md-block">
@@ -37,6 +42,7 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="row">
                         <div class="col-12">
                             <a href="https://www.youtube.com/watch?v=G4hGBS5lxVw" class="video_thumb mx-auto"
+                               target="_blank"
                                style="background-image: url(<?= SITE_URL . '/assets/img/video_bg.jpg' ?>)">
                                 <div class="play_icon">
                                     <i class="far fa-play-circle"></i>

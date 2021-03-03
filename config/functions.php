@@ -116,13 +116,17 @@ function Login()
 }
 
 // go to somewhere on authenticate
-function onAuthenticate()
+function onAuthenticate($url = false)
 {
-    if ($_SESSION['group_id'] == 0) {
-        Redirect(SITE_URL . "/user/");
-    } elseif ($_SESSION['group_id'] == 1) {
-        Redirect(SITE_URL . "/admin/");
+    if ($url) {
+    	return ($_SESSION['group_id'] == 0) ? SITE_URL . "/user/" : SITE_URL . "/admin/";
     }
+
+	if ($_SESSION['group_id'] == 0) {
+		Redirect(SITE_URL . "/user/");
+	} elseif ($_SESSION['group_id'] == 1) {
+		Redirect(SITE_URL . "/admin/");
+	}
 
 }
 
