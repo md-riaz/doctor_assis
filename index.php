@@ -1,6 +1,7 @@
 <?php
 $pageTitle = "Home";
 require_once __DIR__ . '/includes/header.php';
+
 ?>
     <div class="container-fluid">
         <div class="row">
@@ -25,7 +26,9 @@ require_once __DIR__ . '/includes/header.php';
                                     <a href="<?= SITE_URL ?>/registration/" class="btn btn-primary px-4">Make an
                                         Appointment</a>
 								<?php else: ?>
-                                    <a href="<?= onAuthenticate($url = true) ?>" class="btn btn-outline-primary px-4 me-md-3">Dashboard</a>
+                                    <a href="<?= onAuthenticate($url = true) ?>"
+                                       class="btn btn-outline-primary px-4 me-md-3">Dashboard</a>
+                                    <a class="btn btn-primary px-4" href="javascript:logout()">Logout</a>
 								<?php endif; ?>
                             </div>
                         </div>

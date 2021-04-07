@@ -5,54 +5,54 @@ checkLogin();
 
 // if appointment form submitted
 if (isset($_POST['self_apply'])) {
-    $requiredFields = ['ap_date', 'ap_time', 'disease'];
-    $validated = true;
+	$requiredFields = ['ap_date', 'ap_time', 'disease'];
+	$validated = true;
 
-    foreach ($requiredFields as $field) {
-        if (!isset($_POST[$field]) || empty($_POST[$field])) {
-            $validated = false;
-            setAlert('error', 'Fill the required fields');
-        }
-    }
+	foreach ($requiredFields as $field) {
+		if (!isset($_POST[$field]) || empty($_POST[$field])) {
+			$validated = false;
+			setAlert('error', 'Fill the required fields');
+		}
+	}
 
-    if ($validated && setSelfAppointment()) {
-        setAlert('success', 'Appointment has been set successfully');
-    } else {
-        setAlert('error', 'Something went wrong');
-    }
+	if ($validated && setSelfAppointment()) {
+		setAlert('success', 'Appointment has been set successfully');
+	} else {
+		setAlert('error', 'Something went wrong');
+	}
 
 } elseif (isset($_POST['other_apply'])) {
 
-    $requiredFields = ['name', 'number', 'age', 'gender', 'occupation', 'address', 'ap_date', 'ap_time', 'disease'];
-    $validated = true;
+	$requiredFields = ['name', 'number', 'age', 'gender', 'occupation', 'address', 'ap_date', 'ap_time', 'disease'];
+	$validated = true;
 
-    foreach ($requiredFields as $field) {
-        if (!isset($_POST[$field]) || $_POST[$field] == "") {
-            $validated = false;
-            setAlert('error', 'Fill the required fields');
-        }
-    }
+	foreach ($requiredFields as $field) {
+		if (!isset($_POST[$field]) || $_POST[$field] == "") {
+			$validated = false;
+			setAlert('error', 'Fill the required fields');
+		}
+	}
 
-    if ($validated && setOtherAppointment()) {
-        setAlert('success', 'Appointment has been set successfully');
-    } else {
-        setAlert('error', 'Something went wrong');
-    }
+	if ($validated && setOtherAppointment()) {
+		setAlert('success', 'Appointment has been set successfully');
+	} else {
+		setAlert('error', 'Something went wrong');
+	}
 }
 
 // user image upload
 if (isset($_FILES['user_img'])) {
-    $check = getimagesize($_FILES['user_img']['tmp_name']);
-    if ($check) {
-        $save_path = "../assets/img/users/{$_SESSION['id']}.png";
-        if (!move_uploaded_file($_FILES["user_img"]["tmp_name"], $save_path)) {
-            setAlert('error', 'Image upload failed');
-        } else {
-            setAlert('success', 'Image uploaded successfully');
-        }
-    } else {
-        setAlert('error', 'Selected file is not a valid image.');
-    }
+	$check = getimagesize($_FILES['user_img']['tmp_name']);
+	if ($check) {
+		$save_path = "../assets/img/users/{$_SESSION['id']}.png";
+		if (!move_uploaded_file($_FILES["user_img"]["tmp_name"], $save_path)) {
+			setAlert('error', 'Image upload failed');
+		} else {
+			setAlert('success', 'Image uploaded successfully');
+		}
+	} else {
+		setAlert('error', 'Selected file is not a valid image.');
+	}
 }
 
 $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL . "/assets/img/users/{$_SESSION['id']}.png" : SITE_URL . "/assets/img/users/user.png";
@@ -114,20 +114,20 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <?php
-                                    $data = GetData("SELECT * FROM appointment WHERE uid = {$_SESSION['id']} ORDER BY id DESC");
+									<?php
+									$data = MySQLDataPagination("SELECT * FROM appointment WHERE uid = {$_SESSION['id']} ORDER BY id DESC");
 
-                                    if (!$data) :
-                                        ?>
+									if (!$data['content']) :
+										?>
                                         <tr>
                                             <td colspan="10" class="text-center">No Data Available</td>
                                         </tr>
-                                    <?php else : ?>
-                                        <?php foreach ($data as $item) : ?>
-                                            <?php
-                                            $app_date = strtotime($item['date'] . $item['time']);
-                                            $status = $app_date < time() ? "<i class='far fa-times-circle text-danger'></i>" : "<i class='fas fa-check-circle text-success'></i>";
-                                            ?>
+									<?php else : ?>
+										<?php foreach ($data['content'] as $item) : ?>
+											<?php
+											$app_date = strtotime($item['date'] . $item['time']);
+											$status = $app_date < time() ? "<i class='far fa-times-circle text-danger'></i>" : "<i class='fas fa-check-circle text-success'></i>";
+											?>
                                             <tr>
                                                 <td><?= $item['id'] ?></td>
                                                 <td><?= date("d-M-Y, g:i a", $app_date) ?></td>
@@ -135,10 +135,16 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                                 <td><?= $item['disease'] ?></td>
                                                 <td><?= date('d-M-Y', strtotime($item['created_at'])) ?></td>
                                             </tr>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
+										<?php endforeach; ?>
+									<?php endif; ?>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-md-6"><?= $data['info'] ?></div>
+                                <div class="col-md-6">
+                                    <div class="float-end"><?= $data['pagination'] ?></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -156,34 +162,40 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                             </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            $data = GetData("SELECT * FROM report WHERE uid = {$_SESSION['id']} ORDER BY id DESC");
-                            if (!$data) :
-                                ?>
+							<?php
+							$data = MySQLDataPagination("SELECT * FROM report WHERE uid = {$_SESSION['id']} ORDER BY id DESC");
+							if (!$data['content']) :
+								?>
                                 <tr>
                                     <td colspan="10" class="text-center">No Data Available</td>
                                 </tr>
-                            <?php else : ?>
-                                <?php foreach ($data as $item) : ?>
+							<?php else : ?>
+								<?php foreach ($data['content'] as $item) : ?>
                                     <tr>
                                         <td><?= $data['id'] ?></td>
                                         <td><?= $data['prescription'] ?></td>
                                         <td><?= $data['disease_data'] ?></td>
                                         <td><?= date('d-M-Y', strtotime($data['created_at'])) ?></td>
                                     </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+								<?php endforeach; ?>
+							<?php endif; ?>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-md-6"><?= $data['info'] ?></div>
+                        <div class="col-md-6">
+                            <div class="float-end"><?= $data['pagination'] ?></div>
+                        </div>
                     </div>
 
                 </div>
                 <div class="tab-pane fade" id="v-pills-settings">
-                    <?php
-                    $user = getPatientByUserId($_SESSION['id']);
-                    ?>
+					<?php
+					$user = getPatientByUserId($_SESSION['id']);
+					?>
                     <form action="" method="post" enctype="multipart/form-data">
-                        <div class="card mx-auto" style="width: 18rem;">
+                        <div class="card mx-auto">
                             <div class="card-img-top change-img">
                                 <label for="user_img" style="background-image: url(<?= $thumbnail ?>)">
                                     <i class="fas fa-pen"></i>

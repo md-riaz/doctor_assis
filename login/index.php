@@ -3,26 +3,26 @@ $pageTitle = "Home";
 require_once dirname(__DIR__) . '/includes/header.php';
 
 if (isset($_SESSION['login'])) {
-    onAuthenticate();
+	onAuthenticate();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $password = "";
-    $err = [];
-    $requiredFields = ['email', 'password'];
-    $validated = true;
-    foreach ($requiredFields as $field) {
-        if (isset($_POST[$field]) && $_POST[$field] <> "") {
-            $_POST[$field] = mysqli_real_escape_string($con, $_POST[$field]);
-        } else {
-            $validated = false;
-            $err[$field] = ucwords($field) . " is empty";
-        }
-    }
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+	$email = $password = "";
+	$err = [];
+	$requiredFields = ['email', 'password'];
+	$validated = true;
+	foreach ($requiredFields as $field) {
+		if (isset($_POST[$field]) && $_POST[$field] <> "") {
+			$_POST[$field] = mysqli_real_escape_string($con, $_POST[$field]);
+		} else {
+			$validated = false;
+			$err[$field] = ucwords($field) . " is empty";
+		}
+	}
 
-    if ($validated && Login()) {
-        Redirect("../user/");
-    }
+	if ($validated && Login()) {
+		onAuthenticate();
+	}
 }
 ?>
     <div class="container-fluid login_bg" style="background-image:url('../assets/img/login_bg.jpg');">
