@@ -2,6 +2,7 @@
 $pageTitle = "Home";
 require_once dirname(__DIR__) . '/includes/header.php';
 
+
 if (isset($_SESSION['login'])) {
 	onAuthenticate();
 }
@@ -25,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 }
 ?>
-    <div class="container-fluid login_bg" style="background-image:url('../assets/img/login_bg.jpg');">
+    <div class="container-fluid login_bg">
         <div class="row">
             <!-- Just an image -->
             <nav class="navbar navbar-light">
@@ -65,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     <input type="checkbox" class="form-check-input" id="remember">
                                     <label class="form-check-label" for="remember">Remember me</label>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Login</button>
                             </form>
                         </div>
                     </div>

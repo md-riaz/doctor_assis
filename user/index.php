@@ -85,7 +85,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                     Reports</a>
                 <a class="nav-link border border-primary my-1" data-bs-toggle="pill" href="#v-pills-settings"
                    role="tab">Settings</a>
-                <a class="nav-link border border-primary my-1" href="javascript:logout()">Logout</a>
+                <a class="nav-link border border-primary my-1" href="<?= SITE_URL ?>/logout">Logout</a>
             </div>
         </div>
         <div class="col-md-9 my-2">

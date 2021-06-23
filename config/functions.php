@@ -102,7 +102,6 @@ function Login()
 			$_SESSION['name'] = $user['name'];
 			$_SESSION['email'] = $user['email'];
 			$_SESSION['group_id'] = $user['group_id'];
-			$_SESSION['access'] = $group[$_SESSION['group_id']];
 
 			return true;
 		}
@@ -118,23 +117,36 @@ function Login()
 function onAuthenticate($url = false)
 {
 	if ($url) {
-		return ($_SESSION['group_id'] == 0) ? SITE_URL . "/user/" : SITE_URL . "/admin/";
+		if ($_SESSION['group_id'] == 1) {
+			return SITE_URL . "/admin/";
+		}
+
+		if ($_SESSION['group_id'] == 2) {
+			return SITE_URL . "/doctor/";
+		}
+
+		if($_SESSION['group_id'] == 0){
+			return SITE_URL . "/user/";
+		}
 	}
 
-	if ($_SESSION['group_id'] == 0) {
-		Redirect(SITE_URL . "/user/");
-	} elseif ($_SESSION['group_id'] == 1) {
+	if ($_SESSION['group_id'] == 1) {
 		Redirect(SITE_URL . "/admin/");
+	} elseif ($_SESSION['group_id'] == 2) {
+		Redirect(SITE_URL . "/doctor/");
+	} else {
+		Redirect(SITE_URL . "/user/");
 	}
-
+return false;
 }
 
 // logout 
 function logout()
 {
+	$_SESSION = [];
 	session_unset();
 	session_destroy();
-	Redirect(" ../login/");
+	Redirect(SITE_URL . "/login/");
 }
 
 function checkLogin()
@@ -151,10 +163,6 @@ function checkLogin()
 
 }
 
-if (isset($_POST['logout'])) {
-	logout();
-	Redirect("../login/");
-}
 // redirect user to another page.. must be in double quote ""
 function Redirect(string $path)
 {
