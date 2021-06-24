@@ -20,6 +20,7 @@
 }
 
 body {
+  background-color: #f3f3f4;
   font-family: "Poppins", sans-serif;
 }
 
@@ -126,8 +127,8 @@ p {
 }
 
 .video_thumb {
-  display: block;
   background-position: center;
+  display: block;
   height: 350px;
   margin-top: -150px;
   max-width: 100%;
@@ -196,6 +197,14 @@ p {
 
 .nav-dark {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 39px;
+}
+
+.select2-container .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 39px;
 }
 
 /*# sourceMappingURL=style.css.map */

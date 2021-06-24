@@ -62,7 +62,7 @@ $departments = GetData("select * from department where status = '1'");
                             <div class="row mt-4">
 								<?php foreach ($departments as $department): ?>
                                     <div class="col-md-2">
-                                        <a href="<?= SITE_URL . '/department.php?id=' . $department['id'] ?>"
+                                        <a href="<?= SITE_URL . '/doctors.php?dep_id=' . $department['id'] ?>"
                                            class="card-text text-decoration-none d-block">
                                             <div class="card mx-auto m-2 shadow" style="height: 150px;width: 200px;">
                                                 <div class="card-body align-items-center card-body d-flex flex-column justify-content-center">

@@ -64,7 +64,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
         <!-- Just an image -->
         <nav class="navbar navbar-light">
             <a class="navbar-brand mx-auto" href="<?= SITE_URL ?>/user">
-                <div class="logo">doc.assistant</div>
+                <div class="logo">doctor.smart</div>
             </a>
             <div class="d-flex align-items-center">
                 <h5 class="mb-0 me-2">Name</h5>

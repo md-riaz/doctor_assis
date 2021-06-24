@@ -58,26 +58,31 @@ function register()
 	$_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	$default_gid = 0;
 
-	try {
+	$con->query("INSERT INTO user (name, email, phone, password, group_id, created_at) VALUES ('$_POST[name]','$_POST[email]','$_POST[phone]','$_POST[password]', '$default_gid', '$timestamp')");
 
+	return $con->affected_rows > 0;
+}
+
+// register doctor
+function register_doctor()
+{
+	global $con, $timestamp;
+	$_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+	$doc_id = 2;
+
+	try {
 		$con->begin_transaction();
 
-		$con->query("INSERT INTO user (email, password, group_id, created_at) VALUES ('$_POST[email]','$_POST[password]', '$default_gid', '$timestamp')");
+		$con->query("INSERT INTO user (name, email, phone, password, group_id, status, created_at) VALUES ('$_POST[name]','$_POST[email]','$_POST[phone]','$_POST[password]', '$doc_id', '0', '$timestamp')");
 
 		$last_uid = $con->insert_id;
 
-		$con->query("INSERT INTO patient (uid, name, age, gender, occupation, address, number, created_at) 
-          VALUES ('$last_uid', '$_POST[name]', '$_POST[age]', '$_POST[gender]','$_POST[occupation]','$_POST[address]','$_POST[number]', '$timestamp')");
-
-		$last_pid = $con->insert_id;
-
-		$con->query("INSERT INTO appointment (uid, pid, date, time, disease, created_at) 
-          VALUES ('$last_uid','$last_pid', '$_POST[ap_date]', '$_POST[ap_time]','$_POST[disease]', '$timestamp')");
+		$con->query("INSERT INTO doctor (user_id, short_qualification, about, department_id, created_at) 
+          VALUES ('$last_uid','$_POST[short_qualification]', '$_POST[about]', '$_POST[department_id]', '$timestamp')");
 
 		$con->commit();
 
 		return true;
-
 	} catch (Exception $e) {
 		$con->rollback();
 
@@ -96,6 +101,12 @@ function Login()
 		$user = $result->fetch_array();
 
 		if (password_verify($_POST['password'], $user['password'])) {
+
+			if (!$user['status']) {
+				setAlert('danger', 'Please contact admin for your account activation.');
+
+				return false;
+			}
 
 			$_SESSION['login'] = true;
 			$_SESSION['id'] = $user['id'];
@@ -125,19 +136,20 @@ function onAuthenticate($url = false)
 			return SITE_URL . "/doctor/";
 		}
 
-		if($_SESSION['group_id'] == 0){
+		if ($_SESSION['group_id'] == 0) {
 			return SITE_URL . "/user/";
 		}
 	}
 
 	if ($_SESSION['group_id'] == 1) {
-		Redirect(SITE_URL . "/admin/");
+		Redirect("/admin/");
 	} elseif ($_SESSION['group_id'] == 2) {
-		Redirect(SITE_URL . "/doctor/");
+		Redirect("/doctor/");
 	} else {
-		Redirect(SITE_URL . "/user/");
+		Redirect("/user/");
 	}
-return false;
+
+	return false;
 }
 
 // logout 
@@ -146,7 +158,7 @@ function logout()
 	$_SESSION = [];
 	session_unset();
 	session_destroy();
-	Redirect(SITE_URL . "/login/");
+	Redirect("/login/");
 }
 
 function checkLogin()
@@ -155,18 +167,12 @@ function checkLogin()
 		logout();
 		die();
 	}
-	if ($_SESSION['group_id'] == 0 && !in_array('user', explode('/', $_SERVER['REQUEST_URI']))){
-		onAuthenticate();
-	} elseif ($_SESSION['group_id'] == 1 && !in_array('admin', explode('/', $_SERVER['REQUEST_URI']))){
-		onAuthenticate();
-	}
-
 }
 
 // redirect user to another page.. must be in double quote ""
 function Redirect(string $path)
 {
-	header("location: $path");
+	header("location: " . SITE_URL . $path);
 	exit;
 }
 

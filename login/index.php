@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <!-- Just an image -->
             <nav class="navbar navbar-light">
                 <a class="navbar-brand mx-auto" href="/">
-                    <div class="logo">doc.assistant</div>
+                    <div class="logo">doctor.smart</div>
                 </a>
             </nav>
         </div>
