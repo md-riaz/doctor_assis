@@ -54,39 +54,38 @@ $departments = GetData("select * from department where status = '1'");
                     </div>
                 </div>
             </nav>
-            <div class="hero_section py-5" style="background-image: url('<?= SITE_URL . '/assets/img/bg.png' ?>')">
-                <div class="container">
-                    <div class="row align-items-center text-center my-5">
-                        <div class="col-md-12">
-                            <h1 class="text-uppercase text-primary">Please Select a Specialist Area</h1>
-                            <div class="row mt-4">
-								<?php foreach ($departments as $department): ?>
-                                    <div class="col-md-2">
-                                        <a href="<?= SITE_URL . '/doctors.php?dep_id=' . $department['id'] ?>"
-                                           class="card-text text-decoration-none d-block">
-                                            <div class="card mx-auto m-2 shadow" style="height: 150px;width: 200px;">
-                                                <div class="card-body align-items-center card-body d-flex flex-column justify-content-center">
-                                                    <img src="<?= SITE_URL . '/assets/img/department/' . $department['id'] . '.svg' ?>"
-                                                         alt="<?= $department['name'] ?>" class="img-fluid"
-                                                         width="60">
-                                                    <p class="mt-2"><?= $department['name'] ?></p>
-                                                </div>
-                                            </div>
-                                        </a>
+        </div>
+    </div>
+    <div class="hero_section py-5" style="background-image: url('<?= SITE_URL . '/assets/img/bg.png' ?>')">
+        <div class="container">
+            <div class="row align-items-center text-center my-5">
+                <div class="col-md-10 mx-auto">
+                    <h1 class="text-uppercase text-primary">Please Select a Specialist Area</h1>
+                    <div class="row mt-4">
+						<?php foreach ($departments as $department): ?>
+                            <div class="col-6 col-lg-4 col-xl-3">
+                                <a href="<?= SITE_URL . '/doctors.php?dep_id=' . $department['id'] ?>"
+                                   class="card-text text-decoration-none d-block">
+                                    <div class="card mx-auto m-2 shadow" style="height: 150px;width: 200px;">
+                                        <div class="card-body align-items-center card-body d-flex flex-column justify-content-center">
+                                            <img src="<?= SITE_URL . '/assets/img/department/' . $department['id'] . '.svg' ?>"
+                                                 alt="<?= $department['name'] ?>" class="img-fluid"
+                                                 width="60">
+                                            <p class="mt-2"><?= $department['name'] ?></p>
+                                        </div>
                                     </div>
-								<?php endforeach; ?>
+                                </a>
                             </div>
-                        </div>
+						<?php endforeach; ?>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="container footer">
         <div class="row align-items-center">
             <div class="col-md-6 my-3">
-                <p>Copyright @ <?= date('Y') ?>, <?= APP_NAME ?>. All rights reserved.</p>
+                <p class="mb-0">Copyright @ <?= date('Y') ?>, <?= APP_NAME ?>. All rights reserved.</p>
             </div>
             <div class="col-md-6 my-3">
                 <ul class="list-unstyled d-flex justify-content-md-end list-unstyled m-0">

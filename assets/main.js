@@ -3,7 +3,7 @@ $(function () {
         $("#removeAlert").slideUp(500, function () {
             $(this).remove();
         });
-    }, 5000);
+    }, 6000);
 
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
@@ -18,7 +18,7 @@ $(function () {
     });
 
     // show last tab after refresh
-    $('[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
+    $('#dashboard [data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
         // save the latest tab; use cookies if you like 'em better:
         sessionStorage.setItem('lastTab', $(this).attr('href'));
     });
@@ -29,7 +29,7 @@ $(function () {
         $('[href="' + lastTab + '"]').addClass('active');
         $(lastTab).addClass('show active');
     } else {
-        let firstTab = $('[data-bs-toggle="pill"]:first').addClass('active');
+        let firstTab = $('#dashboard [data-bs-toggle="pill"]:first').addClass('active');
         $(firstTab.attr('href')).addClass('show active');
     }
 
@@ -49,4 +49,12 @@ $(function () {
 
     //select2
     $('.select2').select2();
+
+    $(document).on('click', '[name=self]', function (e) {
+        if ($(this).val() === '1'){
+            $('#otherName').show();
+        } else {
+            $('#otherName').hide();
+        }
+    })
 });

@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 }
 ?>
-    <div class="container-fluid login_bg">
+    <div class="container-fluid ">
         <div class="row">
             <!-- Just an image -->
             <nav class="navbar navbar-light">

@@ -35,7 +35,7 @@ function goback()
 // alert function
 function setAlert($type, $msg)
 {
-
+	$type = $type === 'error' ? 'danger' : $type;
 	$_SESSION['alert'] = [
 		"<div id='removeAlert' class='alert alert-$type' role='alert'><strong>" . ucwords($type) . "!</strong> $msg</div>"
 	];
@@ -141,6 +141,12 @@ function onAuthenticate($url = false)
 		}
 	}
 
+	if (!empty($_SESSION['redirect'])) {
+		$url = $_SESSION['redirect'];
+		unset($_SESSION['redirect']);
+		Redirect($url);
+	}
+
 	if ($_SESSION['group_id'] == 1) {
 		Redirect("/admin/");
 	} elseif ($_SESSION['group_id'] == 2) {
@@ -218,24 +224,11 @@ function setSelfAppointment()
 function setOtherAppointment()
 {
 	global $con, $timestamp;
+	$date = date("Y-m-d H:i:s", strtotime($_POST['ap_date'] . $_POST['ap_time']));
+	$name = !empty($_POST['name']) ? $_POST['name'] : NULL;
+	$con->query("INSERT INTO `appointment`(`doc_id`, `user_id`, `hospital_id`, `name`, `self`, `symptom`, `gender`, `blood_group`, `address`, `appoint_date`, `created_at`) VALUES ('$_POST[doc_id]', '$_SESSION[id]', '$_POST[hospital_id]', '$name', '$_POST[self]', '$_POST[symptom]', '$_POST[gender]', '$_POST[blood_group]', '$_POST[address]', '$date', '$timestamp')");
 
-	try {
-
-		$con->begin_transaction();
-
-		$con->query("INSERT INTO patient (uid, name, age, gender, occupation, address, number, created_at) VALUES ('$_SESSION[id]', '$_POST[name]', '$_POST[age]', '$_POST[gender]', '$_POST[occupation]', '$_POST[address]', '$_POST[number]', '$timestamp')");
-
-		$last_id = $con->insert_id;
-
-		$con->query("INSERT INTO appointment (uid, pid, date, time, disease, created_at) VALUES ('$_SESSION[id]', '$last_id', '$_POST[ap_date]', '$_POST[ap_time]', '$_POST[disease]', '$timestamp')");
-
-		$con->commit();
-
-		return true;
-
-	} catch (Exception $e) {
-		return false;
-	}
+	return $con->affected_rows > 0;
 
 }
 

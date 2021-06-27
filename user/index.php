@@ -3,43 +3,6 @@ $pageTitle = "Home";
 require_once dirname(__DIR__) . '/includes/header.php';
 checkLogin();
 
-// if appointment form submitted
-if (isset($_POST['self_apply'])) {
-	$requiredFields = ['ap_date', 'ap_time', 'disease'];
-	$validated = true;
-
-	foreach ($requiredFields as $field) {
-		if (!isset($_POST[$field]) || empty($_POST[$field])) {
-			$validated = false;
-			setAlert('error', 'Fill the required fields');
-		}
-	}
-
-	if ($validated && setSelfAppointment()) {
-		setAlert('success', 'Appointment has been set successfully');
-	} else {
-		setAlert('error', 'Something went wrong');
-	}
-
-} elseif (isset($_POST['other_apply'])) {
-
-	$requiredFields = ['name', 'number', 'age', 'gender', 'occupation', 'address', 'ap_date', 'ap_time', 'disease'];
-	$validated = true;
-
-	foreach ($requiredFields as $field) {
-		if (!isset($_POST[$field]) || $_POST[$field] == "") {
-			$validated = false;
-			setAlert('error', 'Fill the required fields');
-		}
-	}
-
-	if ($validated && setOtherAppointment()) {
-		setAlert('success', 'Appointment has been set successfully');
-	} else {
-		setAlert('error', 'Something went wrong');
-	}
-}
-
 // user image upload
 if (isset($_FILES['user_img'])) {
 	$check = getimagesize($_FILES['user_img']['tmp_name']);
@@ -58,24 +21,30 @@ if (isset($_FILES['user_img'])) {
 $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL . "/assets/img/users/{$_SESSION['id']}.png" : SITE_URL . "/assets/img/users/user.png";
 
 ?>
-
 <div class="container">
     <div class="row">
         <!-- Just an image -->
         <nav class="navbar navbar-light">
-            <a class="navbar-brand mx-auto" href="<?= SITE_URL ?>/user">
+            <a class="navbar-brand mx-auto" href="<?= SITE_URL ?>">
                 <div class="logo">doctor.smart</div>
             </a>
-            <div class="d-flex align-items-center">
-                <h5 class="mb-0 me-2">Name</h5>
-                <img src="<?= $thumbnail ?>" width="40" height="40" alt="user_img"
-                     class="img-fluid rounded-circle img-thumbnail">
+            <div class="dropdown">
+                <div class="d-flex align-items-center " data-bs-toggle="dropdown" aria-expanded="false">
+                    <h5 class="mb-0 me-2"><?= $_SESSION['name'] ?></h5>
+                    <img src="<?= $thumbnail ?>" width="40" height="40" alt="user_img"
+                         class="img-fluid rounded-circle img-thumbnail">
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="<?= SITE_URL ?>/logout">Logout</a></li>
+                </ul>
+
+
             </div>
         </nav>
     </div>
 </div>
 <div class="container shadow-sm mt-5">
-    <div class="row">
+    <div class="row" id="dashboard">
         <div class="col-md-3 py-2 border-end">
             <div class="nav flex-column nav-pills">
                 <a class="nav-link border border-primary my-1" data-bs-toggle="pill" href="#v-pills-schedules"
@@ -83,8 +52,6 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                 <a class="nav-link border border-primary my-1" data-bs-toggle="pill" href="#v-pills-reports"
                    role="tab">Recent
                     Reports</a>
-                <a class="nav-link border border-primary my-1" data-bs-toggle="pill" href="#v-pills-settings"
-                   role="tab">Settings</a>
                 <a class="nav-link border border-primary my-1" href="<?= SITE_URL ?>/logout">Logout</a>
             </div>
         </div>
@@ -115,7 +82,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                     </thead>
                                     <tbody>
 									<?php
-									$data = MySQLDataPagination("SELECT * FROM appointment WHERE uid = {$_SESSION['id']} ORDER BY id DESC");
+									$data = MySQLDataPagination("SELECT * FROM appointment ORDER BY id DESC");
 
 									if (!$data['content']) :
 										?>
@@ -125,14 +92,14 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
 									<?php else : ?>
 										<?php foreach ($data['content'] as $item) : ?>
 											<?php
-											$app_date = strtotime($item['date'] . $item['time']);
+											$app_date = strtotime($item['appoint_date']);
 											$status = $app_date < time() ? "<i class='far fa-times-circle text-danger'></i>" : "<i class='fas fa-check-circle text-success'></i>";
 											?>
                                             <tr>
                                                 <td><?= $item['id'] ?></td>
                                                 <td><?= date("d-M-Y, g:i a", $app_date) ?></td>
                                                 <td><?= $status ?></td>
-                                                <td><?= $item['disease'] ?></td>
+                                                <td><?= $item['symptom'] ?></td>
                                                 <td><?= date('d-M-Y', strtotime($item['created_at'])) ?></td>
                                             </tr>
 										<?php endforeach; ?>
@@ -163,7 +130,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                             </thead>
                             <tbody>
 							<?php
-							$data = MySQLDataPagination("SELECT * FROM report WHERE uid = {$_SESSION['id']} ORDER BY id DESC");
+							$data = MySQLDataPagination("SELECT * FROM report ORDER BY id DESC");
 							if (!$data['content']) :
 								?>
                                 <tr>
@@ -190,30 +157,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="v-pills-settings">
-					<?php
-					$user = getPatientByUserId($_SESSION['id']);
-					?>
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <div class="card mx-auto">
-                            <div class="card-img-top change-img">
-                                <label for="user_img" style="background-image: url(<?= $thumbnail ?>)">
-                                    <i class="fas fa-pen"></i>
-                                    <input type="file" name="user_img" id="user_img">
-                                </label>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><?= $user['name'] ?></h5>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><b>Age:</b> <?= $user['age'] ?> years</li>
-                                <li class="list-group-item"><b>Gender:</b> <?= $gender[$user['gender']] ?></li>
-                                <li class="list-group-item"><b>Phone:</b> <?= $user['number'] ?></li>
-                                <li class="list-group-item"><b>Occupation:</b> <?= $user['occupation'] ?></li>
-                            </ul>
-                        </div>
-                    </form>
-                </div>
+
             </div>
         </div>
 

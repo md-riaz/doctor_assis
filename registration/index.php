@@ -66,10 +66,10 @@ $departments = GetData("select * from department where status = '1'");
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#user" type="button"
-                                    role="tab">As User
+                                    role="tab">User Registration
                             </button>
                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#doctor" type="button"
-                                    role="tab">As Doctor
+                                    role="tab">Doctor Registration
                             </button>
                         </div>
                     </nav>
