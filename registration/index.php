@@ -50,15 +50,50 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $departments = GetData("select * from department where status = '1'");
 
 ?>
-    <div class="container-fluid reg_bg">
+    <div class="container-fluid ">
         <div class="row">
-            <!-- Just an image -->
-            <nav class="navbar navbar-light">
-                <a class="navbar-brand mx-auto" href="/">
-                    <div class="logo">doctor.smart</div>
-                </a>
+            <nav class="navbar navbar-expand-md navbar-light">
+                <div class="container">
+                    <a class="navbar-brand" href="<?= SITE_URL ?>">
+                        <div class="logo">doctor.assistant</div>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item fw-bold my-2">
+                                <a class="nav-link" aria-current="page" href="<?= SITE_URL ?>">Home</a>
+                            </li>
+                            <li class="nav-item fw-bold ms-md-3 my-2">
+                                <a class="nav-link" href="<?= SITE_URL ?>/about.php">About</a>
+                            </li>
+                            <li class="nav-item fw-bold ms-md-3 my-2">
+                                <a class="nav-link" href="<?= SITE_URL ?>/contact.php">Contact</a>
+                            </li>
+							<?php if (!empty($_SESSION['login'])): ?>
+                                <li class="nav-item ms-md-3">
+                                    <a class="nav-link btn bg-warning bg-gradient text-dark px-4 my-2"
+                                       href="<?= onAuthenticate(true) ?>">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+							<?php else: ?>
+                                <li class="nav-item ms-md-3">
+                                    <a class="nav-link btn bg-primary bg-gradient text-white px-4 my-2"
+                                       href="<?= SITE_URL ?>/login/">
+                                        <i class="fas fa-sign-in-alt"></i> Login
+                                    </a>
+                                </li>
+							<?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
             </nav>
         </div>
+    </div>
 
         <div class="container mt-5 ">
             <div class="row justify-content-center">
@@ -209,5 +244,5 @@ $departments = GetData("select * from department where status = '1'");
                 </div>
             </div>
         </div>
-    </div>
+
 <?php require_once '../includes/footer.php'; ?>

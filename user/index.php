@@ -26,7 +26,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
         <!-- Just an image -->
         <nav class="navbar navbar-light">
             <a class="navbar-brand mx-auto" href="<?= SITE_URL ?>">
-                <div class="logo">doctor.smart</div>
+                <div class="logo">doctor.assistant</div>
             </a>
             <div class="dropdown">
                 <div class="d-flex align-items-center " data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,7 +82,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                     </thead>
                                     <tbody>
 									<?php
-									$data = MySQLDataPagination("SELECT * FROM appointment ORDER BY id DESC");
+									$data = MySQLDataPagination("SELECT * FROM appointment WHERE user_id = $_SESSION[id] ORDER BY id DESC");
 
 									if (!$data['content']) :
 										?>

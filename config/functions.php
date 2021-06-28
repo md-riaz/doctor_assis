@@ -144,7 +144,8 @@ function onAuthenticate($url = false)
 	if (!empty($_SESSION['redirect'])) {
 		$url = $_SESSION['redirect'];
 		unset($_SESSION['redirect']);
-		Redirect($url);
+		header("location: "  . $url);
+	exit;
 	}
 
 	if ($_SESSION['group_id'] == 1) {
