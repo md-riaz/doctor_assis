@@ -197,20 +197,6 @@ function getUserById(int $id)
 }
 
 
-// get user by id
-function getPatientByUserId(int $userId)
-{
-	global $con;
-	$rows = $con->query("SELECT * FROM patient WHERE uid = {$userId} LIMIT 1");
-
-	if ($rows->num_rows > 0) {
-		return $rows->fetch_array();
-	}
-
-	return false;
-}
-
-
 // self appointment
 function setSelfAppointment()
 {

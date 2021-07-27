@@ -56,26 +56,28 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </div>
     <div class="container">
-        <div class="row full-section">
-            <div class="col-md-8 mx-auto" style="margin-top: 200px;">
-                <h1 class="text-uppercase text-primary text-center mb-4">Contact Admin</h1>
-                <form>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1"
-                               placeholder="name@example.com">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Phone</label>
-                        <input type="number" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                  required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                </form>
+        <div class="full-section d-flex justify-content-center align-items-center" style="margin-top: -100px;">
+            <div class="row w-100">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="text-uppercase text-primary text-center mb-4">Contact Admin</h1>
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                   placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="number" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                      required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

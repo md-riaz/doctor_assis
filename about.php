@@ -56,9 +56,9 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <section class="full-section" style="margin-top:200px">
+        <section class="full-section d-flex justify-content-center align-items-center" style="margin-top: -100px">
+            <div class="row" >
+                <div class="col-md-8 mx-auto">
                     <h2>Why do we use it?</h2>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
@@ -67,9 +67,9 @@ require_once __DIR__ . '/includes/header.php';
                         their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
                         their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
                         purpose (injected humour and the like).</p>
-                </section>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
     <div class="container footer">
         <div class="row align-items-center">

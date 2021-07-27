@@ -3,22 +3,7 @@ $pageTitle = "Home";
 require_once dirname(__DIR__) . '/includes/header.php';
 checkLogin();
 
-// user image upload
-if (isset($_FILES['user_img'])) {
-	$check = getimagesize($_FILES['user_img']['tmp_name']);
-	if ($check) {
-		$save_path = "../assets/img/users/{$_SESSION['id']}.png";
-		if (!move_uploaded_file($_FILES["user_img"]["tmp_name"], $save_path)) {
-			setAlert('error', 'Image upload failed');
-		} else {
-			setAlert('success', 'Image uploaded successfully');
-		}
-	} else {
-		setAlert('error', 'Selected file is not a valid image.');
-	}
-}
-
-$thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL . "/assets/img/users/{$_SESSION['id']}.png" : SITE_URL . "/assets/img/users/user.png";
+$thumbnail = SITE_URL . "/assets/img/users/user.png";
 
 ?>
 <div class="container">
@@ -26,7 +11,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
         <!-- Just an image -->
         <nav class="navbar navbar-light">
             <a class="navbar-brand mx-auto" href="<?= SITE_URL ?>">
-                <div class="logo">doctor.assistant</div>
+                <div class="logo"><?= LOGO ?></div>
             </a>
             <div class="dropdown">
                 <div class="d-flex align-items-center " data-bs-toggle="dropdown" aria-expanded="false">
@@ -157,7 +142,6 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                     </div>
 
                 </div>
-
             </div>
         </div>
 
