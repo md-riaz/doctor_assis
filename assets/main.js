@@ -39,22 +39,93 @@ $(function () {
     })
 
     // scroll header
-    $(window).scroll(function () {
-        var sticky = $('.navbar'),
-            scroll = $(window).scrollTop();
-
-        if (scroll >= 100) sticky.addClass('nav-dark');
-        else sticky.removeClass('nav-dark');
-    });
+    // $(window).scroll(function () {
+    //     var sticky = $('.navbar'),
+    //         scroll = $(window).scrollTop();
+    //
+    //     if (scroll >= 100) sticky.addClass('nav-dark');
+    //     else sticky.removeClass('nav-dark');
+    // });
 
     //select2
     $('.select2').select2();
 
     $(document).on('click', '[name=self]', function (e) {
-        if ($(this).val() === '1'){
+        if ($(this).val() === '1') {
             $('#otherName').show();
         } else {
             $('#otherName').hide();
         }
-    })
+    });
+
+    feather.replace({'aria-hidden': 'true'});
+    // Graphs
+    var ctx = document.getElementById('myChart')
+    // eslint-disable-next-line no-unused-vars
+    if (ctx) {
+        console.log(ctx)
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    'Sunday',
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                    'Saturday'
+                ],
+                datasets: [{
+                    data: [
+                        15339,
+                        21345,
+                        18483,
+                        24003,
+                        23489,
+                        24092,
+                        12034
+                    ],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#007bff'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        })
+    }
+
+    let pathID = $(`#${location.pathname.split('.php')[0].split('/')[2]}`);
+    if (!pathID.length){
+        pathID = $(`#${location.pathname.split('.php')[0].split('/')[1]}`);
+    }
+    if (!pathID.length){
+        pathID = $(`#index`);
+    }
+
+    pathID.addClass('active');
+
+    // confirm
+    $(document).on('click', '[data-confirm]', function (e) {
+        e.preventDefault();
+        let conf = confirm($(this).data('confirm'));
+
+        if (conf) {
+            window.location = $(this).attr('href');
+        }
+    });
+
 });

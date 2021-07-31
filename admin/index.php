@@ -1,145 +1,163 @@
 <?php
-$pageTitle = "Home";
+$pageTitle = "Dashboard";
 require_once dirname(__DIR__) . '/includes/header.php';
 checkLogin();
 
-$thumbnail = SITE_URL . "/assets/img/users/user.png";
-
 ?>
-    <div class="container">
+<?php require_once('includes/header.php') ?>
+
+    <div class="container-fluid">
         <div class="row">
-            <!-- Just an image -->
-            <nav class="navbar navbar-light">
-                <a class="navbar-brand mx-auto" href="<?= SITE_URL ?>">
-                    <div class="logo"><?= LOGO ?></div>
-                </a>
-                <div class="dropdown">
-                    <div class="d-flex align-items-center " data-bs-toggle="dropdown" aria-expanded="false">
-                        <h5 class="mb-0 me-2"><?= $_SESSION['name'] ?></h5>
-                        <img src="<?= $thumbnail ?>" width="40" height="40" alt="user_img"
-                             class="img-fluid rounded-circle img-thumbnail">
-                    </div>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="<?= SITE_URL ?>/logout">Logout</a></li>
-                    </ul>
+			<?php require_once('includes/navigation.php') ?>
 
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <span data-feather="calendar"></span>
+                            This week
+                        </button>
+                    </div>
                 </div>
-            </nav>
+
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+                <h2>Section title</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Header</th>
+                            <th scope="col">Header</th>
+                            <th scope="col">Header</th>
+                            <th scope="col">Header</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1,001</td>
+                            <td>random</td>
+                            <td>data</td>
+                            <td>placeholder</td>
+                            <td>text</td>
+                        </tr>
+                        <tr>
+                            <td>1,002</td>
+                            <td>placeholder</td>
+                            <td>irrelevant</td>
+                            <td>visual</td>
+                            <td>layout</td>
+                        </tr>
+                        <tr>
+                            <td>1,003</td>
+                            <td>data</td>
+                            <td>rich</td>
+                            <td>dashboard</td>
+                            <td>tabular</td>
+                        </tr>
+                        <tr>
+                            <td>1,003</td>
+                            <td>information</td>
+                            <td>placeholder</td>
+                            <td>illustrative</td>
+                            <td>data</td>
+                        </tr>
+                        <tr>
+                            <td>1,004</td>
+                            <td>text</td>
+                            <td>random</td>
+                            <td>layout</td>
+                            <td>dashboard</td>
+                        </tr>
+                        <tr>
+                            <td>1,005</td>
+                            <td>dashboard</td>
+                            <td>irrelevant</td>
+                            <td>text</td>
+                            <td>placeholder</td>
+                        </tr>
+                        <tr>
+                            <td>1,006</td>
+                            <td>dashboard</td>
+                            <td>illustrative</td>
+                            <td>rich</td>
+                            <td>data</td>
+                        </tr>
+                        <tr>
+                            <td>1,007</td>
+                            <td>placeholder</td>
+                            <td>tabular</td>
+                            <td>information</td>
+                            <td>irrelevant</td>
+                        </tr>
+                        <tr>
+                            <td>1,008</td>
+                            <td>random</td>
+                            <td>data</td>
+                            <td>placeholder</td>
+                            <td>text</td>
+                        </tr>
+                        <tr>
+                            <td>1,009</td>
+                            <td>placeholder</td>
+                            <td>irrelevant</td>
+                            <td>visual</td>
+                            <td>layout</td>
+                        </tr>
+                        <tr>
+                            <td>1,010</td>
+                            <td>data</td>
+                            <td>rich</td>
+                            <td>dashboard</td>
+                            <td>tabular</td>
+                        </tr>
+                        <tr>
+                            <td>1,011</td>
+                            <td>information</td>
+                            <td>placeholder</td>
+                            <td>illustrative</td>
+                            <td>data</td>
+                        </tr>
+                        <tr>
+                            <td>1,012</td>
+                            <td>text</td>
+                            <td>placeholder</td>
+                            <td>layout</td>
+                            <td>dashboard</td>
+                        </tr>
+                        <tr>
+                            <td>1,013</td>
+                            <td>dashboard</td>
+                            <td>irrelevant</td>
+                            <td>text</td>
+                            <td>visual</td>
+                        </tr>
+                        <tr>
+                            <td>1,014</td>
+                            <td>dashboard</td>
+                            <td>illustrative</td>
+                            <td>rich</td>
+                            <td>data</td>
+                        </tr>
+                        <tr>
+                            <td>1,015</td>
+                            <td>random</td>
+                            <td>tabular</td>
+                            <td>information</td>
+                            <td>text</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
         </div>
     </div>
-    <div class="container shadow-sm mt-5">
-        <div class="row" id="dashboard">
-            <div class="col-md-12 py-2 border-end">
-                <div class="nav flex-column nav-pills">
-                    <a class="nav-link border border-primary my-1" data-bs-toggle="pill" href="#requests"
-                       role="tab">Requests</a>
-                    <a class="nav-link border border-primary my-1" data-bs-toggle="pill" href="#v-pills-reports"
-                       role="tab">Recent
-                        Reports</a>
-                    <a class="nav-link border border-primary my-1" href="<?= SITE_URL ?>/logout">Logout</a>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="tab-content">
-                    <div class="tab-pane fade" id="requests">
-                        <div class="card text-dark mb-3">
-                            <div class="card-header">
-                                <div class="float-start btn">Doctor Requests</div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered ws_nowrap">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Phone</th>
-                                            <th>Short Qualification</th>
-                                            <th>Department</th>
-                                            <th>Requested</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-										<?php
-										$data = MySQLDataPagination("SELECT d.id,u.name, u.email,u.phone, d.short_qualification, d.about, department.name as department, d.created_at FROM `user` as u JOIN doctor as d on d.user_id = u.id JOIN department ON department.id = d.department_id WHERE d.status = '0'");
 
-										if (!$data['content']) :
-											?>
-                                            <tr>
-                                                <td colspan="10" class="text-center">No Data Available</td>
-                                            </tr>
-										<?php else : ?>
-											<?php foreach ($data['content'] as $item) : ?>
-                                                <tr>
-                                                    <td><?= $item['id'] ?></td>
-                                                    <td><?= $item['name'] ?></td>
-                                                    <td><?= $item['phone'] ?></td>
-                                                    <td><?= $item['short_qualification'] ?></td>
-                                                    <td><?= $item['department'] ?></td>
-                                                    <td><?= date('d-M-Y', strtotime($item['created_at'])) ?></td>
-                                                    <td><a href="/">Accept</a></td>
-                                                </tr>
-											<?php endforeach; ?>
-										<?php endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row align-items-center">
-                                    <div class="col-md-6"><?= $data['info'] ?></div>
-                                    <div class="col-md-6">
-                                        <div class="float-end"><?= $data['pagination'] ?></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-reports">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Prescription</th>
-                                    <th>Disease_data</th>
-                                    <th>Created at</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-								<?php
-								$data = MySQLDataPagination("SELECT * FROM report ORDER BY id DESC");
-								if (!$data['content']) :
-									?>
-                                    <tr>
-                                        <td colspan="10" class="text-center">No Data Available</td>
-                                    </tr>
-								<?php else : ?>
-									<?php foreach ($data['content'] as $item) : ?>
-                                        <tr>
-                                            <td><?= $data['id'] ?></td>
-                                            <td><?= $data['prescription'] ?></td>
-                                            <td><?= $data['disease_data'] ?></td>
-                                            <td><?= date('d-M-Y', strtotime($data['created_at'])) ?></td>
-                                        </tr>
-									<?php endforeach; ?>
-								<?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row align-items-center">
-                            <div class="col-md-6"><?= $data['info'] ?></div>
-                            <div class="col-md-6">
-                                <div class="float-end"><?= $data['pagination'] ?></div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
 
 <?php require_once dirname(__DIR__) . '/includes/footer.php';
