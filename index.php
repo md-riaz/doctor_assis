@@ -7,7 +7,7 @@ $departments = GetData("select * from department where status = '1'");
     <div class="container-fluid">
         <div class="row">
             <!-- Just an image -->
-            <nav class="navbar navbar-expand-md navbar-light position-fixed">
+            <nav class="navbar navbar-expand-md navbar-light position-fixed" id="MainNav">
                 <div class="container">
                     <a class="navbar-brand" href="<?= SITE_URL ?>">
                         <div class="logo"><?= LOGO ?></div>

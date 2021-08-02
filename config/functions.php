@@ -144,8 +144,8 @@ function onAuthenticate($url = false)
 	if (!empty($_SESSION['redirect'])) {
 		$url = $_SESSION['redirect'];
 		unset($_SESSION['redirect']);
-		header("location: "  . $url);
-	exit;
+		header("location: " . $url);
+		exit;
 	}
 
 	if ($_SESSION['group_id'] == 1) {
@@ -212,7 +212,7 @@ function setOtherAppointment()
 {
 	global $con, $timestamp;
 	$date = date("Y-m-d H:i:s", strtotime($_POST['ap_date'] . $_POST['ap_time']));
-	$name = !empty($_POST['name']) ? $_POST['name'] : NULL;
+	$name = !empty($_POST['name']) ? $_POST['name'] : null;
 	$con->query("INSERT INTO `appointment`(`doc_id`, `user_id`, `hospital_id`, `name`, `self`, `symptom`, `gender`, `blood_group`, `address`, `appoint_date`, `created_at`) VALUES ('$_POST[doc_id]', '$_SESSION[id]', '$_POST[hospital_id]', '$name', '$_POST[self]', '$_POST[symptom]', '$_POST[gender]', '$_POST[blood_group]', '$_POST[address]', '$date', '$timestamp')");
 
 	return $con->affected_rows > 0;
@@ -288,3 +288,24 @@ function MySQLDataPagination($mysqlQuery)
 
 	return ["content" => $content, "pagination" => $pHTML, "info" => $info];
 }
+
+// enable doctor
+$enableDoctor = static function ($id) use ($con) {
+	$q = $con->query("UPDATE doctor SET status = '1' WHERE id = '$id' AND status = '0'");
+
+	return $con->affected_rows > 0;
+};
+// disable doctor
+$disableDoctor = static function ($id) use ($con) {
+	$q = $con->query("UPDATE doctor SET status = '0' WHERE id = '$id' AND status = '1'");
+
+	return $con->affected_rows > 0;
+};
+
+// delete doctor
+$deleteDoctor = static function ($id) use ($con) {
+	$q = $con->query("DELETE FROM doctor WHERE id = '$id' AND status = '0'");
+
+	return $con->affected_rows > 0;
+};
+

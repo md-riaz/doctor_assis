@@ -23,15 +23,15 @@ $(function () {
         sessionStorage.setItem('lastTab', $(this).attr('href'));
     });
 
-    // go to the latest tab, if it exists:
-    var lastTab = sessionStorage.getItem('lastTab');
-    if (lastTab) {
-        $('[href="' + lastTab + '"]').addClass('active');
-        $(lastTab).addClass('show active');
-    } else {
-        let firstTab = $('#dashboard [data-bs-toggle="pill"]:first').addClass('active');
-        $(firstTab.attr('href')).addClass('show active');
-    }
+    // // go to the latest tab, if it exists:
+    // var lastTab = sessionStorage.getItem('lastTab');
+    // if (lastTab) {
+    //     $('[href="' + lastTab + '"]').addClass('active');
+    //     $(lastTab).addClass('show active');
+    // } else {
+    //     let firstTab = $('#dashboard [data-bs-toggle="pill"]:first').addClass('active');
+    //     $(firstTab.attr('href')).addClass('show active');
+    // }
 
     // clear sessionStorage on navbar-brand click
     $('.navbar-brand:first').on('click', function () {
@@ -39,13 +39,13 @@ $(function () {
     })
 
     // scroll header
-    // $(window).scroll(function () {
-    //     var sticky = $('.navbar'),
-    //         scroll = $(window).scrollTop();
-    //
-    //     if (scroll >= 100) sticky.addClass('nav-dark');
-    //     else sticky.removeClass('nav-dark');
-    // });
+    $(window).scroll(function () {
+        var sticky = $('#MainNav'),
+            scroll = $(window).scrollTop();
+
+        if (scroll >= 100) sticky.addClass('nav-dark');
+        else sticky.removeClass('nav-dark');
+    });
 
     //select2
     $('.select2').select2();
@@ -63,7 +63,6 @@ $(function () {
     var ctx = document.getElementById('myChart')
     // eslint-disable-next-line no-unused-vars
     if (ctx) {
-        console.log(ctx)
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -108,15 +107,21 @@ $(function () {
         })
     }
 
-    let pathID = $(`#${location.pathname.split('.php')[0].split('/')[2]}`);
-    if (!pathID.length){
-        pathID = $(`#${location.pathname.split('.php')[0].split('/')[1]}`);
+    let segment = location.pathname.split('.php');
+    let pathID = null;
+
+    segment = segment ? segment[0].split('/')[2] : null;
+    pathID = $(`#${segment ? segment : null}`);
+    if (!pathID.length) {
+        segment = segment ? segment[0].split('/')[1] : null;
+        pathID = $(`#${segment ? segment : null}`);
     }
-    if (!pathID.length){
+
+    if (!pathID?.length) {
         pathID = $(`#index`);
     }
 
-    pathID.addClass('active');
+    pathID?.addClass('active').parents('.collapse').addClass('show').parents('.collapsed').removeClass('collapsed');
 
     // confirm
     $(document).on('click', '[data-confirm]', function (e) {
