@@ -10,11 +10,6 @@ if ($action === 'enable' && $id) {
 	$update ? setAlert('success', 'Doctor successfully approved') : setAlert('warning', 'Invalid ID');
 }
 
-if ($action === 'delete' && $id) {
-	$update = $deleteDoctor($id);
-
-	$update ? setAlert('success', 'Doctor successfully deleted') : setAlert('warning', 'Invalid ID');
-}
 
 if ($action === 'disable' && $id) {
 	$update = $disableDoctor($id);

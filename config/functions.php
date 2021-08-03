@@ -102,12 +102,6 @@ function Login()
 
 		if (password_verify($_POST['password'], $user['password'])) {
 
-			if (!$user['status']) {
-				setAlert('danger', 'Please contact admin for your account activation.');
-
-				return false;
-			}
-
 			$_SESSION['login'] = true;
 			$_SESSION['id'] = $user['id'];
 			$_SESSION['name'] = $user['name'];
@@ -302,10 +296,4 @@ $disableDoctor = static function ($id) use ($con) {
 	return $con->affected_rows > 0;
 };
 
-// delete doctor
-$deleteDoctor = static function ($id) use ($con) {
-	$q = $con->query("DELETE FROM doctor WHERE id = '$id' AND status = '0'");
-
-	return $con->affected_rows > 0;
-};
 

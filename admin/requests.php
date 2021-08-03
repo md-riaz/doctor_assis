@@ -44,9 +44,6 @@ checkLogin();
                                             <a href="<?= SITE_URL ?>/admin/post/doctor_post.php?action=enable&id=<?= $item['id'] ?>" data-confirm="Are you sure you want to accept this request ?"
                                                class="btn btn-sm btn-primary"><span
                                                         data-feather="user-plus"></span> Enable</a>
-                                            <a href="<?= SITE_URL ?>/admin/post/doctor_post.php?action=delete&id=<?= $item['id'] ?>" data-confirm="Are you sure you want to delete this request ?"
-                                               class="btn btn-sm btn-danger"><span
-                                                        data-feather="trash"></span> Delete</a>
                                         </td>
                                     </tr>
 								<?php endforeach; ?>
