@@ -51,7 +51,7 @@ $(function () {
     $('.select2').select2();
 
     $(document).on('click', '[name=self]', function (e) {
-        if ($(this).val() === '1') {
+        if ($(this).val() === '0') {
             $('#otherName').show();
         } else {
             $('#otherName').hide();

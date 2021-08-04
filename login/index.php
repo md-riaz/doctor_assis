@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <main style="display: flex;align-items: center;padding-top: 40px;padding-bottom: 40px;background-color: #f5f5f5;height: 100%;">
         <div class="form-signin text-center">
             <form action="" method="post">
-                <div class="logo mx-auto mb-3">doctor.assistant</div>
+                <div class="logo mx-auto mb-3"><a href="/">doctor.assistant</a></div>
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
                 <div class="form-floating">

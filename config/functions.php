@@ -296,4 +296,11 @@ $disableDoctor = static function ($id) use ($con) {
 	return $con->affected_rows > 0;
 };
 
+$cancelAppointment = static function ($id) use ($con) {
+	$time = date("Y-m-d H:i:s", strtotime('- 1 day'));
+	$con->query("UPDATE appointment SET status = '0' WHERE id = '$id' AND status = '1' AND appoint_date > $time AND user_id = $_SESSION[id]");
+
+	return $con->affected_rows > 0;
+};
+
 

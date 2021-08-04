@@ -105,12 +105,12 @@ if (!empty($_POST)) {
                                             <label class="form-label">Appointment For</label> <br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="self"
-                                                       id="inlineRadio1" value="0" checked>
+                                                       id="inlineRadio1" value="1" checked>
                                                 <label class="form-check-label" for="inlineRadio1">Self</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="self"
-                                                       id="inlineRadio2" value="1">
+                                                       id="inlineRadio2" value="0">
                                                 <label class="form-check-label" for="inlineRadio2">Other</label>
                                             </div>
                                         </div>
