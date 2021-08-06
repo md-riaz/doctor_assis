@@ -25,6 +25,11 @@ function GetData($sql)
 	return (count($result) < 1 ? false : $result);
 }
 
+// get single data
+$getSingleData = static function ($sql) use ($con) {
+	return $con->query($sql)->fetch_assoc();
+};
+
 // go back utility function
 function goback()
 {
@@ -190,19 +195,8 @@ function getUserById(int $id)
 	return false;
 }
 
-
-// self appointment
-function setSelfAppointment()
-{
-	global $con, $timestamp;
-	$pid = getPatientByUserId($_SESSION['id']);
-	$con->query("INSERT INTO appointment (uid, pid, date, time, disease, created_at) VALUES ('$_SESSION[id]', '$pid[id]', '$_POST[ap_date]', '$_POST[ap_time]','$_POST[disease]', '$timestamp')");
-
-	return $con->affected_rows > 0;
-}
-
 // other people appointment
-function setOtherAppointment()
+function setAppointment()
 {
 	global $con, $timestamp;
 	$date = date("Y-m-d H:i:s", strtotime($_POST['ap_date'] . $_POST['ap_time']));

@@ -30,7 +30,7 @@ if (!empty($_POST)) {
 		}
 	}
 
-	if ($validated && setOtherAppointment()) {
+	if ($validated && setAppointment()) {
 		setAlert('success', 'Appointment has been set successfully');
 		onAuthenticate();
 	}
@@ -151,7 +151,7 @@ if (!empty($_POST)) {
                                         <div class="mb-3">
                                             <label class="form-label">Hospital</label>
                                             <select class="form-select select2 required" name="hospital_id"
-                                                    style="width:100%" required>
+                                                    style="width:100%" required aria-label="Hospital">
                                                 <option selected value="">Select One</option>
 												<?php foreach ($hospitals as $h) : ?>
                                                     <option value="<?= $h['id'] ?>"><?= $h['name'] ?>

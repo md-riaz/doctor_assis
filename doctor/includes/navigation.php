@@ -9,13 +9,13 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="<?= SITE_URL ?>/doctor/reports.php" id="reports">
-                    <span data-feather="home"></span>
+                    <span data-feather="file-text"></span>
                     Reports
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="<?= SITE_URL ?>/doctor/profile.php" id="profile">
-                    <span data-feather="home"></span>
+                    <span data-feather="user"></span>
                     Profile
                 </a>
             </li>

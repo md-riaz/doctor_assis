@@ -244,4 +244,64 @@ table {
   }
 }
 
+.change-img {
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 5px;position: relative;
+  text-align: center;
+
+  label {
+	background-size: cover;
+	border: 1px solid #e6e6e6;
+	border-radius: 50%;
+	box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+	height: 17rem;
+	overflow: hidden;
+	position: relative;
+	width: 17rem;
+
+	&:after {
+	  background: rgb(0 0 0 / 50%);
+	  content: "";
+	  height: 100%;
+	  left: 0;
+	  opacity: 0;
+	  position: absolute;
+	  top: 0;
+	  transition: all 0.2s ease-in-out;
+
+	  width: 100%;
+
+	  :hover > & {
+		opacity: 1;
+	  }
+	}
+
+	i {
+	  color: #fff;
+	  cursor: pointer;
+	  left: 0%;
+	  opacity: 0;
+	  position: absolute;
+	  top: 50%;
+	  transform: translatey(-50%);
+	  transition: all 0.2s ease-in-out;
+	  width: 100%;
+	  z-index: 1;
+
+	  :hover > & {
+		opacity: 1;
+	  }
+	}
+  }
+
+
+  input {
+	height: 0;
+	opacity: 0;
+	user-select: none;
+	width: 0;
+  }
+}
+
 
