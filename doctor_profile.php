@@ -3,7 +3,7 @@ $pageTitle = "Home";
 require_once __DIR__ . '/includes/header.php';
 $doc = [];
 if (!empty($_GET['id'])) {
-	$doc = $con->query("SELECT d.id, d.short_qualification, d.about, d.facebook, d.linkedin, d.specialist, d.experience, d.qulification, d.membership, d.chamber_availability, u.id as user_id, u.name, u.email, u.phone, dp.name as dep_name FROM `doctor` as d JOIN user as u ON d.user_id = u.id JOIN department as dp ON dp.id = d.department_id WHERE u.status != 0 AND d.id = $_GET[id]")->fetch_assoc();
+	$doc = $con->query("SELECT d.id, d.short_qualification, d.about, d.facebook, d.linkedin, d.specialist, d.experience, d.qulification, d.membership, u.id as user_id, u.name, u.email, u.phone, dp.name as dep_name FROM `doctor` as d JOIN user as u ON d.user_id = u.id JOIN department as dp ON dp.id = d.department_id WHERE u.status != 0 AND d.id = $_GET[id]")->fetch_assoc();
 }
 ?>
 <div class="container-fluid">
