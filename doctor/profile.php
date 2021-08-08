@@ -6,10 +6,14 @@ $pageTitle = "Profile";
 require_once dirname(__DIR__) . '/includes/header.php';
 checkLogin();
 
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
 
+if (!empty($_POST)) {
+    if ($updateProfile()) {
+        setAlert('success', 'Profile updated successfully');
+    } else{
+	    setAlert('error', 'Something went wrong');
+    }
+}
 
 // user image upload
 if (isset($_FILES['user_img']['tmp_name']) && !empty(trim($_FILES['user_img']['tmp_name']))) {
@@ -78,7 +82,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="linkedin" class="form-label">Linkedin</label>
-                                        <input type="number" name="linkedin" class="form-control" id="linkedin"
+                                        <input type="text" name="linkedin" class="form-control" id="linkedin"
                                                value="<?= $doctor['linkedin'] ?>" placeholder="Profile Link">
                                     </div>
                                 </div>
@@ -217,7 +221,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                 <div class="accordion-body">
                                     <div class="mb-3">
                                     <textarea class="form-control editor" name="about" cols="30"
-                                              rows="10" required><?= $doctor['about'] ?></textarea>
+                                              rows="10" ><?= $doctor['about'] ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -251,7 +255,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                 <div class="accordion-body">
                                     <div class="mb-3">
                                     <textarea class="form-control editor" name="experience" cols="30"
-                                              rows="10" required><?= $doctor['experience'] ?></textarea>
+                                              rows="10" ><?= $doctor['experience'] ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -268,7 +272,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                 <div class="accordion-body">
                                     <div class="mb-3">
                                     <textarea class="form-control editor" name="qualification" cols="30"
-                                              rows="10" required><?= $doctor['qualification'] ?></textarea>
+                                              rows="10" ><?= $doctor['qualification'] ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -293,7 +297,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                     </div>
                     <div class="row justify-content-center mt-5">
                         <div class="col-md-8 text-center">
-                            <button class="btn btn-primary w-25">Save</button>
+                            <button type="submit" value="update_profile" class="btn btn-primary w-25">Save</button>
                         </div>
                     </div>
                 </form>

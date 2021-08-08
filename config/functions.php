@@ -297,4 +297,28 @@ $cancelAppointment = static function ($id) use ($con) {
 	return $con->affected_rows > 0;
 };
 
+$updateProfile = static function () use ($con) {
+	try {
+		$con->query("START TRANSACTION");
+		$con->query("UPDATE user SET phone = $_POST[phone] WHERE id = $_SESSION[id]");
+		$con->query("UPDATE `doctor` SET `short_qualification`= $_POST[short_qualification],`about`= $_POST[about],`facebook`= $_POST[facebook],`linkedin`= $_POST[linkedin],`specialist`= $_POST[specialist],`experience`= $_POST[experience],`qualification`= $_POST[qualification],`department_id`= $_POST[department_id] ,`membership`= $_POST[membership] WHERE user_id = $_SESSION[id]");
+		$doctor = $con->query("SELECT id FROM doctor WHERE user_id = $_SESSION[id]")->fetch_assoc();
+		$con->query("DELETE FROM chamber_availablity WHERE doc_id = $doctor[id]");
+
+		if (isset($_POST['hospital_id'], $_POST['from'], $_POST['to'])) {
+			for ($i = 0; $i < 3; $i++) {
+				$con->query("INSERT INTO `chamber_availability`(, `doc_id`, `hospital_id`, `time_from`, `time_to`) VALUES ($doctor[id], $_POST[hospital_id][$i], $_POST[from][$i], $_POST[to][$i])");
+			}
+		}
+
+		$con->query("COMMIT");
+		return true;
+	} catch (Exception $e) {
+		$con->query("ROLLBACK");
+	}
+
+
+	return false;
+};
+
 
