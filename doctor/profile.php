@@ -8,11 +8,11 @@ checkLogin();
 
 
 if (!empty($_POST)) {
-    if ($updateProfile()) {
-        setAlert('success', 'Profile updated successfully');
-    } else{
-	    setAlert('error', 'Something went wrong');
-    }
+	if ($updateProfile()) {
+		setAlert('success', 'Profile updated successfully');
+	} else {
+		setAlert('error', 'Something went wrong');
+	}
 }
 
 // user image upload
@@ -43,9 +43,11 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="pt-3 pb-2 mb-3">
 				<?php
-				$doctor = $getSingleData("SELECT u.name, u.email, u.phone, d.* FROM user as u JOIN doctor AS d ON d.user_id = u.id WHERE u.id = $_SESSION[id]");
+				$doctor = $getSingleData("SELECT d.id AS doc_id, u.name, u.email, u.phone, d.* FROM user as u JOIN doctor AS d ON d.user_id = u.id WHERE u.id = $_SESSION[id]");
 				$departments = GetData("select id, name from department where status = '1'");
 				$hospitals = GetData("select * from hospital where status = '1'");
+				$available = GetData("SELECT * FROM chamber_availability WHERE doc_id = $doctor[doc_id] ORDER BY id LIMIT 3");
+
 				?>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card mx-auto">
@@ -131,9 +133,10 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                                 <label class="form-label">Hospital</label>
                                                 <select class="form-select select2 required" name="hospital_id[]"
                                                         style="width:100%" required aria-label="Hospital">
-                                                    <option selected value="">Select One</option>
+                                                    <option value="">Select One</option>
 													<?php foreach ($hospitals as $h) : ?>
-                                                        <option value="<?= $h['id'] ?>"><?= $h['name'] ?>
+                                                        <option <?= @$available[0]['hospital_id'] === $h['id'] ? 'selected' : '' ?>
+                                                                value="<?= $h['id'] ?>"><?= $h['name'] ?>
                                                             , <?= $h['district'] ?></option>
 													<?php endforeach; ?>
                                                 </select>
@@ -142,13 +145,13 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">From</label>
-                                                <input type="time" class="form-control" name="from[]" required>
+                                                <input type="time" class="form-control" name="from[]" required value="<?= @$available[0]['time_from'] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">To</label>
-                                                <input type="time" class="form-control" name="to[]" required>
+                                                <input type="time" class="form-control" name="to[]" required value="<?= @$available[0]['time_to'] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +163,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                                         style="width:100%" aria-label="Hospital">
                                                     <option selected value="">Select One</option>
 													<?php foreach ($hospitals as $h) : ?>
-                                                        <option value="<?= $h['id'] ?>"><?= $h['name'] ?>
+                                                        <option <?= @$available[1]['hospital_id'] === $h['id'] ? 'selected' : '' ?> value="<?= $h['id'] ?>"><?= $h['name'] ?>
                                                             , <?= $h['district'] ?></option>
 													<?php endforeach; ?>
                                                 </select>
@@ -169,13 +172,13 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">From</label>
-                                                <input type="time" class="form-control" name="from[]">
+                                                <input type="time" class="form-control" name="from[]" value="<?= @$available[1]['time_to'] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">To</label>
-                                                <input type="time" class="form-control" name="to[]">
+                                                <input type="time" class="form-control" name="to[]" value="<?= @$available[1]['time_to'] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -187,7 +190,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                                         style="width:100%" aria-label="Hospital">
                                                     <option selected value="">Select One</option>
 													<?php foreach ($hospitals as $h) : ?>
-                                                        <option value="<?= $h['id'] ?>"><?= $h['name'] ?>
+                                                        <option <?= @$available[2]['hospital_id'] === $h['id'] ? 'selected' : '' ?> value="<?= $h['id'] ?>"><?= $h['name'] ?>
                                                             , <?= $h['district'] ?></option>
 													<?php endforeach; ?>
                                                 </select>
@@ -196,13 +199,13 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">From</label>
-                                                <input type="time" class="form-control" name="from[]">
+                                                <input type="time" class="form-control" name="from[]" value="<?= @$available[2]['time_to'] ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">To</label>
-                                                <input type="time" class="form-control" name="to[]">
+                                                <input type="time" class="form-control" name="to[]" value="<?= @$available[2]['time_to'] ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -221,7 +224,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                 <div class="accordion-body">
                                     <div class="mb-3">
                                     <textarea class="form-control editor" name="about" cols="30"
-                                              rows="10" ><?= $doctor['about'] ?></textarea>
+                                              rows="10"><?= $doctor['about'] ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +258,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                 <div class="accordion-body">
                                     <div class="mb-3">
                                     <textarea class="form-control editor" name="experience" cols="30"
-                                              rows="10" ><?= $doctor['experience'] ?></textarea>
+                                              rows="10"><?= $doctor['experience'] ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +275,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
                                 <div class="accordion-body">
                                     <div class="mb-3">
                                     <textarea class="form-control editor" name="qualification" cols="30"
-                                              rows="10" ><?= $doctor['qualification'] ?></textarea>
+                                              rows="10"><?= $doctor['qualification'] ?></textarea>
                                     </div>
                                 </div>
                             </div>

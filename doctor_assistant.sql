@@ -116,7 +116,7 @@ CREATE TABLE `doctor` (
   `linkedin` varchar(100) DEFAULT NULL,
   `specialist` text DEFAULT NULL,
   `experience` text DEFAULT NULL,
-  `qulification` text DEFAULT NULL,
+  `qualification` text DEFAULT NULL,
   `department_id` int(11) NOT NULL,
   `membership` text DEFAULT NULL,
   `chamber_availability` text DEFAULT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE `doctor` (
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`id`, `user_id`, `short_qualification`, `about`, `facebook`, `linkedin`, `specialist`, `experience`, `qulification`, `department_id`, `membership`, `chamber_availability`, `status`, `created_at`) VALUES
+INSERT INTO `doctor` (`id`, `user_id`, `short_qualification`, `about`, `facebook`, `linkedin`, `specialist`, `experience`, `qualification`, `department_id`, `membership`, `chamber_availability`, `status`, `created_at`) VALUES
 (1, 3, 'MBBS, FCPS (SURGERY)', 'I am an Assistant Professor, Department of Surgery at Dhaka Central International Medical College & Hospital. My sub-specialty interest is to ensure continued medical education and side by side medical research.', '#', '#', NULL, NULL, NULL, 1, NULL, NULL, 1, '2021-06-23 11:22:14'),
 (3, 5, 'MS,FCPS, MRCS, MRCPS, WHO Fellow, Urology & Renal Transplant', 'Assistant Professor,\r\nDept. of Urology,\r\nShaheed Suhrawardy Medical College and Hospital, Dhaka.\r\n\r\nWHO Fellow in Urology and Renal Transplant.\r\n\r\nEx. Specialist Registrar,\r\nUrology, National Health Services, UK', '#', '#', NULL, NULL, NULL, 1, NULL, NULL, 1, '2021-06-24 20:01:50');
 

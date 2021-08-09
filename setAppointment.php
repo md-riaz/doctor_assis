@@ -6,7 +6,7 @@ if (!isset($_SESSION['login'])) {
 }
 
 if (!empty($_GET['doc_id'])) {
-	$doc = $con->query("SELECT d.id, d.short_qualification, d.about, d.facebook, d.linkedin, d.specialist, d.experience, d.qulification, d.membership, d.chamber_availability, d.department_id, u.id as user_id, u.name, u.email, u.phone, dp.name as dep_name FROM `doctor` as d JOIN user as u ON d.user_id = u.id JOIN department as dp ON dp.id = d.department_id WHERE u.status != 0 AND d.id = $_GET[doc_id]")->fetch_assoc();
+	$doc = $con->query("SELECT d.id, d.short_qualification, d.about, d.facebook, d.linkedin, d.specialist, d.experience, d.qualification, d.membership, d.department_id, u.id as user_id, u.name, u.email, u.phone, dp.name as dep_name FROM `doctor` as d JOIN user as u ON d.user_id = u.id JOIN department as dp ON dp.id = d.department_id WHERE u.status != 0 AND d.id = $_GET[doc_id]")->fetch_assoc();
 } else {
 	Redirect("/");
 }

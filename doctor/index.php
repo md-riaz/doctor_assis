@@ -16,7 +16,7 @@ checkLogin();
                     <h2>Search Filter</h2>
                     <div class="card">
                         <div class="card-body">
-                            <form action="" method="post">
+                            <form action="" method="get">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="mb-3">
