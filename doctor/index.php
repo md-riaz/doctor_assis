@@ -17,19 +17,32 @@ checkLogin();
                     <div class="card">
                         <div class="card-body">
                             <form action="" method="get">
+								<?php
+								$apFrom = $_GET['from']??date("Y-m-d");
+								$apTo = $_GET['to']??date("Y-m-d");
+								$hid = $_GET['hospital_id']??null;
+
+								$search = '';
+								if (!empty($_GET['hospital_id'])) {
+									$search .= "AND a.hospital_id = $_GET[hospital_id]";
+								}
+
+								$data = MySQLDataPagination("SELECT a.id, h.name AS hospital, a.symptom, a.gender, a.blood_group, IF(self, u.name, a.name) as patient, a.appoint_date FROM `appointment` as a JOIN user as u ON a.user_id = u.id JOIN hospital as h ON h.id = a.hospital_id WHERE a.status = 1 AND doc_id = $_SESSION[id] AND DATE(appoint_date) BETWEEN '$apFrom' AND '$apTo' $search ORDER BY a.created_at DESC");
+
+								?>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="from" class="form-label">From</label>
                                             <input id="from" type="date" class="form-control" name="from"
-                                                   value="<?= date('Y-m-d') ?>">
+                                                   value="<?= $apFrom ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="to" class="form-label">To</label>
                                             <input id="to" type="date" class="form-control" name="to"
-                                                   value="<?= date('Y-m-d') ?>">
+                                                   value="<?= $apTo ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -37,10 +50,11 @@ checkLogin();
                                         <div class="mb-3">
                                             <label class="form-label">Hospital</label>
                                             <select class="form-select select2 required" name="hospital_id"
-                                                    style="width:100%" required aria-label="Hospital">
+                                                    style="width:100%" aria-label="Hospital">
                                                 <option selected value="">Select One</option>
 												<?php foreach ($hospitals as $h) : ?>
-                                                    <option value="<?= $h['id'] ?>"><?= $h['name'] ?>
+                                                    <option <?= $hid === $h['id'] ? 'selected' : '' ?>
+                                                            value="<?= $h['id'] ?>"><?= $h['name'] ?>
                                                         , <?= $h['district'] ?></option>
 												<?php endforeach; ?>
                                             </select>
@@ -72,8 +86,6 @@ checkLogin();
                                     </thead>
                                     <tbody>
 									<?php
-									$data = MySQLDataPagination("SELECT a.id, h.name AS hospital, a.symptom, a.gender, a.blood_group, IF(self, u.name, a.name) as patient, a.appoint_date FROM `appointment` as a JOIN user as u ON a.user_id = u.id JOIN hospital as h ON h.id = a.hospital_id WHERE a.status = 1 AND doc_id = $_SESSION[id] ORDER BY a.created_at DESC");
-
 									if (!$data['content']) : ?>
                                         <tr>
                                             <td colspan="10" class="text-center">No Data Available</td>
