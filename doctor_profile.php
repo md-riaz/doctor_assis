@@ -92,8 +92,8 @@ if (!empty($_GET['id'])) {
 											<?php foreach ($chamberTime as $time) { ?>
                                                 <tr>
                                                     <td><?= $time['hospital'] ?></td>
-                                                    <td><?= date('H:i a', strtotime($time['time_from'])) ?>
-                                                        - <?= date('H:i a', strtotime($time['time_to'])) ?></td>
+                                                    <td><?= date('h:i a', strtotime($time['time_from'])) ?>
+                                                        - <?= date('h:i a', strtotime($time['time_to'])) ?></td>
                                                 </tr>
 											<?php } ?>
                                             </tbody>
@@ -101,7 +101,7 @@ if (!empty($_GET['id'])) {
                                     </div>
 								<?php } ?>
                                 <a href="<?= SITE_URL ?>/setAppointment.php?doc_id=<?= $_GET['id'] ?>"
-                                   class="btn btn-warning">Appoint Now</a>
+                                   class="btn btn-warning">Book Now</a>
                                 <div class="d-block mt-3">
                                     <a href="<?= $doc['facebook'] ?>" class="ms-2 fa-2x"><i
                                                 class="fab fa-facebook-square"></i></a>

@@ -40,6 +40,12 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="<?= SITE_URL ?>/admin/users.php" id="users">
+                    <span data-feather="user"></span>
+                    Users
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

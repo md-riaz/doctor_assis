@@ -26,8 +26,9 @@ checkLogin();
 								if (!empty($_GET['hospital_id'])) {
 									$search .= "AND a.hospital_id = $_GET[hospital_id]";
 								}
+								$sql = "SELECT a.id, h.name AS hospital, a.symptom, a.gender, a.blood_group, IF(self, u.name, a.name) as patient, a.appoint_date FROM `appointment` as a JOIN user as u ON a.user_id = u.id JOIN hospital as h ON h.id = a.hospital_id WHERE a.status = 1 AND a.doc_id = (SELECT id FROM doctor WHERE user_id = $_SESSION[id] LIMIT 1) AND DATE(appoint_date) BETWEEN '$apFrom' AND '$apTo' $search ORDER BY a.created_at DESC";
 
-								$data = MySQLDataPagination("SELECT a.id, h.name AS hospital, a.symptom, a.gender, a.blood_group, IF(self, u.name, a.name) as patient, a.appoint_date FROM `appointment` as a JOIN user as u ON a.user_id = u.id JOIN hospital as h ON h.id = a.hospital_id WHERE a.status = 1 AND doc_id = $_SESSION[id] AND DATE(appoint_date) BETWEEN '$apFrom' AND '$apTo' $search ORDER BY a.created_at DESC");
+								$data = MySQLDataPagination($sql);
 
 								?>
                                 <div class="row">
@@ -98,7 +99,7 @@ checkLogin();
                                             <tr>
                                                 <td><?= $item['patient'] ?></td>
                                                 <td><?= $item['hospital'] ?></td>
-                                                <td><?= date('d-M-Y H:i a', $app_date) ?></td>
+                                                <td><?= date('d-M-Y h:i a', $app_date) ?></td>
                                                 <td>
                                                     <a href="<?= SITE_URL ?>/doctor/appointment_view.php?id=<?= $item['id'] ?>"
                                                        class="text-primary">

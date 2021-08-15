@@ -14,7 +14,7 @@ const PAGINATION_LIMIT = 5;
 // default timezone
 date_default_timezone_set("Asia/Dhaka");
 // timestamp format
-$timestamp = date("Y-m-d H:i:s");
+$timestamp = date("Y-m-d h:i:s");
 
 $gender = [0 => "female", 1 => "male"];
 $group = [0 => "user", 1 => "admin", 2 => "doctor"];

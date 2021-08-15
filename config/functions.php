@@ -290,6 +290,21 @@ $disableDoctor = static function ($id) use ($con) {
 	return $con->affected_rows > 0;
 };
 
+
+// enable user
+$enableUser = static function ($id) use ($con) {
+	$q = $con->query("UPDATE user SET status = '1' WHERE id = '$id' AND status = '0'");
+
+	return $con->affected_rows > 0;
+};
+// disable user
+$disableUser = static function ($id) use ($con) {
+	$q = $con->query("UPDATE user SET status = '0' WHERE id = '$id' AND status = '1'");
+
+	return $con->affected_rows > 0;
+};
+
+
 $cancelAppointment = static function ($id) use ($con) {
 	$time = date("Y-m-d H:i:s", strtotime('- 1 day'));
 	$con->query("UPDATE appointment SET status = '0' WHERE id = '$id' AND status = '1' AND appoint_date > $time AND user_id = $_SESSION[id]");
