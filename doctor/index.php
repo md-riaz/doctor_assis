@@ -101,9 +101,15 @@ checkLogin();
                                                 <td><?= $item['hospital'] ?></td>
                                                 <td><?= date('d-M-Y h:i a', $app_date) ?></td>
                                                 <td>
-                                                    <a href="<?= SITE_URL ?>/doctor/appointment_view.php?id=<?= $item['id'] ?>"
-                                                       class="text-primary">
+                                                    <a href="javascript:" class="text-primary"
+                                                       data-bs-target="#ajaxModal" data-bs-toggle="modal"
+                                                       data-href="../modals/appointment_view.php?id=<?= $item['id'] ?>">
                                                         <span data-feather="eye"></span> View
+                                                    </a>
+
+                                                    <a href="<?= SITE_URL ?>/doctor/add_report.php?id=<?= $item['id'] ?>"
+                                                       class="text-primary ms-2">
+                                                        <span data-feather="file-plus"></span> Report
                                                     </a>
                                                 </td>
                                             </tr>
