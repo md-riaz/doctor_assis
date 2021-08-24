@@ -304,7 +304,7 @@ $disableUser = static function ($id) use ($con) {
 	return $con->affected_rows > 0;
 };
 
-
+// appointments
 $cancelAppointment = static function ($id) use ($con) {
 	$time = date("Y-m-d H:i:s", strtotime('- 1 day'));
 	$con->query("UPDATE appointment SET status = '0' WHERE id = '$id' AND status = '1' AND appoint_date > $time AND user_id = $_SESSION[id]");
@@ -338,6 +338,23 @@ $updateProfile = static function () use ($con) {
 
 
 	return false;
+};
+
+// report
+
+$addReport = static function () use ($con, $timestamp) {
+
+	foreach ($_POST as $key => $value) {
+		$_POST[$key] = mysqli_real_escape_string($con, $value);
+	}
+
+	$html = htmlspecialchars($_POST['prescription']);
+
+	$sql = "INSERT INTO `report`(`doc_id`, `appoint_id`, `title`, `prescription`, `created_at`) VALUES ('{$_POST['doc_id']}', {$_POST['appointment_id']}, '$_POST[title]', '{$html}', '{$timestamp}')";
+
+	$con->query($sql);
+
+	return $con->affected_rows > 0;
 };
 
 

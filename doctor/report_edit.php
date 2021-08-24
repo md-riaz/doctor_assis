@@ -1,13 +1,13 @@
 <?php
-$pageTitle = "Create Report";
+$pageTitle = "Edit Report";
 require_once dirname(__DIR__) . '/includes/header.php';
 checkLogin();
 
-$id = $_GET['aid']??null;
+$id = $_GET['id']??null;
 
 if (!$id) die('Invalid ID');
 
-$sql = "SELECT doc.name as doctor, d.id as doc_id, h.name AS hospital, a.symptom, a.gender, a.blood_group, IF(self, u.name, a.name) as name, u.email, u.phone, a.appoint_date FROM `appointment` as a JOIN user as u ON a.user_id = u.id JOIN hospital as h ON h.id = a.hospital_id JOIN doctor as d ON d.id = a.doc_id JOIN user as doc ON doc.id = d.user_id WHERE a.id = $id";
+$sql = "SELECT r.appoint_id, r.doc_id, doc.name as doctor, h.name AS hospital, u.email, u.phone, r.title, r.prescription, a.symptom, a.gender, a.blood_group, IF(self, u.name, a.name) as name, a.appoint_date FROM report as r JOIN appointment as a ON a.id = r.appoint_id JOIN user as u ON a.user_id = u.id JOIN hospital as h ON h.id = a.hospital_id JOIN doctor as d ON d.id = a.doc_id JOIN user as doc ON doc.id = d.user_id WHERE r.id = $id";
 
 $data = $getSingleData($sql);
 
@@ -32,7 +32,7 @@ if (!$data) die('Invalid ID');
                             <div class="col-md-3"><b>Patient Name : </b><?= $data['name'] ?></div>
                             <div class="col-md-3"><b>Gender : </b><?= $gender[$data['gender']] ?></div>
                             <div class="col-md-3"><b>Blood Group : </b><?= $data['blood_group'] ?></div>
-                            <div class="col-md-3"><b>Appointment Id : </b><?= $id ?></div>
+                            <div class="col-md-3"><b>Appointment Id : </b><?= $data['appoint_id'] ?></div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -51,24 +51,25 @@ if (!$data) die('Invalid ID');
                             </div>
                         </div>
                         <form action="post/report_post.php?action=add" method="post">
-                            <input type="hidden" name="appointment_id" value="<?= $id ?>">
+                            <input type="hidden" name="appointment_id" value="<?= $data['appoint_id'] ?>">
                             <input type="hidden" name="doc_id" value="<?= $data['doc_id'] ?>">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-bold">Title</label>
-                                        <input type="text" name="title" class="form-control" required value="<?= "{$data['name']}'s Report" ?>">
+                                        <input type="text" name="title" class="form-control" required
+                                               value="<?= $data['title'] ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-bold">Prescription Details</label>
                                         <textarea class="form-control editor" name="prescription" cols="30"
-                                                  rows="20"></textarea>
+                                                  rows="20"><?= $data['prescription'] ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-center">
-                                    <button type="submit" value="update_profile" class="btn btn-primary w-25">Save
+                                    <button type="submit" value="update_profile" class="btn btn-primary w-25">Update
                                     </button>
                                 </div>
                             </div>

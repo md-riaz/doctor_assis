@@ -127,9 +127,9 @@ checkLogin();
                                                        class="text-primary">
                                                         <span data-feather="eye"></span> View
                                                     </a>
-                                                    <a href="<?= SITE_URL ?>/doctor/report_print.php?id=<?= $item['id'] ?>"
+                                                    <a href="<?= SITE_URL ?>/doctor/report_edit.php?id=<?= $item['id'] ?>"
                                                        class="text-primary ms-3">
-                                                        <span data-feather="printer"></span> Print
+                                                        <span data-feather="edit"></span> Edit
                                                     </a>
                                                 </td>
                                             </tr>

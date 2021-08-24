@@ -317,7 +317,7 @@ $thumbnail = file_exists("../assets/img/users/{$_SESSION['id']}.png") ? SITE_URL
         selector: 'textarea.editor',
         branding: false,
         plugins: 'link code advlist lists table autosave anchor autolink preview print wordcount searchreplace template',
-        toolbar: 'styleselect formatting forecolor backcolor align| link numlist bullist table | template searchreplace preview print code, removeformat',
+        toolbar: 'styleselect formatting forecolor backcolor align| link numlist bullist table | template searchreplace preview print code removeformat',
         table_default_attributes: {
             border: '1'
         },

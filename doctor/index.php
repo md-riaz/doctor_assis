@@ -107,7 +107,7 @@ checkLogin();
                                                         <span data-feather="eye"></span> View
                                                     </a>
 
-                                                    <a href="<?= SITE_URL ?>/doctor/add_report.php?id=<?= $item['id'] ?>"
+                                                    <a href="<?= SITE_URL ?>/doctor/add_report.php?aid=<?= $item['id'] ?>"
                                                        class="text-primary ms-2">
                                                         <span data-feather="file-plus"></span> Report
                                                     </a>
