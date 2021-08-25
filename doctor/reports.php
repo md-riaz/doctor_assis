@@ -106,6 +106,7 @@ checkLogin();
                                     </thead>
                                     <tbody>
 									<?php
+
 									if (!$data['content']) : ?>
                                         <tr>
                                             <td colspan="10" class="text-center">No Data Available</td>

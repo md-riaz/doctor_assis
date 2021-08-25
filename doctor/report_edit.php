@@ -50,7 +50,7 @@ if (!$data) die('Invalid ID');
                                 </div>
                             </div>
                         </div>
-                        <form action="post/report_post.php?action=add" method="post">
+                        <form action="post/report_post.php?action=update&id=<?= $id ?>" method="post">
                             <input type="hidden" name="appointment_id" value="<?= $data['appoint_id'] ?>">
                             <input type="hidden" name="doc_id" value="<?= $data['doc_id'] ?>">
                             <div class="row">

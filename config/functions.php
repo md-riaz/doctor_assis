@@ -358,3 +358,22 @@ $addReport = static function () use ($con, $timestamp) {
 };
 
 
+$updateReport = static function ($id) use ($con, $timestamp) {
+
+	foreach ($_POST as $key => $value) {
+		$_POST[$key] = mysqli_real_escape_string($con, $value);
+	}
+
+	$html = htmlspecialchars($_POST['prescription']);
+
+	$sql = "UPDATE `report` SET `title`= '$_POST[title]', `prescription`= '{$html}'  WHERE id = {$id}";
+
+	$update = $con->query($sql);
+
+	if ($update) {
+		return true;
+	}
+
+	return false;
+};
+
