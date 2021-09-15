@@ -2,7 +2,7 @@
 $pageTitle = "Dashboard";
 require_once dirname(__DIR__) . '/includes/header.php';
 checkLogin();
-
+$data = $getSingleData("SELECT DAYNAME(appoint_date) as day , COUNT(id) as total FROM `appointment` GROUP BY DAYNAME(appoint_date)");
 ?>
 <?php require_once('includes/header.php') ?>
 
@@ -31,13 +31,12 @@ checkLogin();
             type: 'line',
             data: {
                 labels: [
+                    'Saturday',
                     'Sunday',
                     'Monday',
                     'Tuesday',
                     'Wednesday',
-                    'Thursday',
-                    'Friday',
-                    'Saturday'
+                    'Thursday'
                 ],
                 datasets: [{
                     data: [
@@ -46,8 +45,7 @@ checkLogin();
                         18483,
                         24003,
                         23489,
-                        24092,
-                        12034
+                        24092
                     ],
                     lineTension: 0,
                     backgroundColor: 'transparent',

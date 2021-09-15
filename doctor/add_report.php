@@ -57,7 +57,8 @@ if (!$data) die('Invalid ID');
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-bold">Title</label>
-                                        <input type="text" name="title" class="form-control" required value="<?= "{$data['name']}'s Report" ?>">
+                                        <input type="text" name="title" class="form-control" required
+                                               value="<?= "{$data['name']}'s Report" ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -100,5 +101,12 @@ if (!$data) die('Invalid ID');
         extended_valid_elements: "em[class|name|id]",
         apply_source_formatting: false,                //added option
         verify_html: false,
+        templates: [
+            {
+                title: "Report Template",
+                description: "This is the report template for an report",
+                url: "<?= SITE_URL . '/assets/report.html' ?>"
+            }
+        ]
     });
 </script>

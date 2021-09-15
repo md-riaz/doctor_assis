@@ -5,7 +5,7 @@
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <input class="form-control form-control-dark w-100" type="text"  aria-label="Search" readonly style="background-color:rgba(255,255,255,.1);">
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
             <a class="nav-link px-3" href="<?= SITE_URL ?>/logout">Sign out</a>

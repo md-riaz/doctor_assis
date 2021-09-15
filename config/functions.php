@@ -201,7 +201,9 @@ function setAppointment()
 	global $con, $timestamp;
 	$date = date("Y-m-d H:i:s", strtotime($_POST['ap_date'] . $_POST['ap_time']));
 	$name = !empty($_POST['name']) ? $_POST['name'] : null;
-	$con->query("INSERT INTO `appointment`(`doc_id`, `user_id`, `hospital_id`, `name`, `self`, `symptom`, `gender`, `blood_group`, `address`, `appoint_date`, `created_at`) VALUES ('$_POST[doc_id]', '$_SESSION[id]', '$_POST[hospital_id]', '$name', '$_POST[self]', '$_POST[symptom]', '$_POST[gender]', '$_POST[blood_group]', '$_POST[address]', '$date', '$timestamp')");
+	$blood_group = !empty($_POST['blood_group']) ? $_POST['blood_group'] : null;
+	$address = !empty($_POST['address']) ? $_POST['address'] : null;
+	$con->query("INSERT INTO `appointment`(`doc_id`, `user_id`, `hospital_id`, `name`, `self`, `symptom`, `gender`, `blood_group`, `address`, `appoint_date`, `created_at`) VALUES ('$_POST[doc_id]', '$_SESSION[id]', '$_POST[hospital_id]', '$name', '$_POST[self]', '$_POST[symptom]', '$_POST[gender]', '$blood_group', '$address', '$date', '$timestamp')");
 
 	return $con->affected_rows > 0;
 
@@ -307,7 +309,7 @@ $disableUser = static function ($id) use ($con) {
 // appointments
 $cancelAppointment = static function ($id) use ($con) {
 	$time = date("Y-m-d H:i:s", strtotime('- 1 day'));
-	$con->query("UPDATE appointment SET status = '0' WHERE id = '$id' AND status = '1' AND appoint_date > $time AND user_id = $_SESSION[id]");
+	$con->query("UPDATE appointment SET status = '0' WHERE id = '$id' AND status = '1' AND appoint_date > '$time' AND user_id = $_SESSION[id]");
 
 	return $con->affected_rows > 0;
 };

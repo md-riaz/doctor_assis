@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Home";
+$pageTitle = "Select a doctor";
 require_once __DIR__ . '/includes/header.php';
 $docs = [];
 if (!empty($_GET['dep_id'])) {

@@ -1,4 +1,5 @@
 <?php
+$pageTitle = "Set an appointment";
 require_once __DIR__ . '/includes/header.php';
 if (!isset($_SESSION['login'])) {
 	$_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
@@ -11,15 +12,15 @@ if (!empty($_GET['doc_id'])) {
 	Redirect("/");
 }
 
-$hospitals = GetData("select * from hospital where status = '1'");
+$hospitals = GetData("select * from hospital where status = '1' AND id IN (SELECT hospital_id FROM chamber_availability WHERE doc_id = $_GET[doc_id])");
 
 
 if (!empty($_POST)) {
-	$requiredFields = ['self', 'ap_date', 'ap_time', 'symptom', 'hospital_id', 'gender', 'address', 'doc_id'];
+	$requiredFields = ['self', 'ap_date', 'ap_time', 'symptom', 'hospital_id', 'gender', 'doc_id','name'];
 	$validated = true;
 
 	if (isset($_POST['self']) && !empty($_POST['self'])) {
-		$requiredFields[] = 'name';
+		array_pop($requiredFields);
 	}
 
 	foreach ($requiredFields as $field) {
@@ -29,6 +30,9 @@ if (!empty($_POST)) {
 			break;
 		}
 	}
+	echo '<pre>';
+	print_r($_REQUEST);
+	echo '</pre>';
 
 	if ($validated && setAppointment()) {
 		setAlert('success', 'Appointment has been set successfully');

@@ -27,7 +27,7 @@ checkLogin();
                             </thead>
                             <tbody>
 							<?php
-							$data = MySQLDataPagination("SELECT r.id, r.title, u.name as doctor, r.created_at FROM report as r JOIN user as u ON r.user_id = u.id WHERE r.user_id = $_SESSION[id] ORDER BY r.id DESC");
+							$data = MySQLDataPagination("SELECT r.id, r.title, u.name as doctor, r.created_at FROM report as r JOIN appointment as a ON r.appoint_id = a.id JOIN user as u ON u.id = a.user_id WHERE a.user_id = $_SESSION[id] ORDER BY r.id DESC");
 
 							if (!$data['content']) : ?>
                                 <tr>

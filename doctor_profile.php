@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Home";
+$pageTitle = "Doctor Profile";
 require_once __DIR__ . '/includes/header.php';
 $doc = [];
 if (!empty($_GET['id'])) {
@@ -103,9 +103,9 @@ if (!empty($_GET['id'])) {
                                 <a href="<?= SITE_URL ?>/setAppointment.php?doc_id=<?= $_GET['id'] ?>"
                                    class="btn btn-warning">Book Now</a>
                                 <div class="d-block mt-3">
-                                    <a href="<?= $doc['facebook'] ?>" class="ms-2 fa-2x"><i
+                                    <a href="https://<?= $doc['facebook'] ?>" class="ms-2 fa-2x"><i
                                                 class="fab fa-facebook-square"></i></a>
-                                    <a href="<?= $doc['linkedin'] ?>" class="ms-2 fa-2x"><i class="fab fa-linkedin"></i></a>
+                                    <a href="https://<?= $doc['linkedin'] ?>" class="ms-2 fa-2x"><i class="fab fa-linkedin"></i></a>
                                 </div>
                             </div>
                         </div>
