@@ -35,7 +35,7 @@ checkLogin();
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="from" class="form-label">From</label>
-                                            <input id="from" type="date" class="form-control" name="from"
+                                            <input id="from" type="date" class="form-control" name="from" max="<?= date("Y-m-d") ?>"
                                                    value="<?= $apFrom ?>">
                                         </div>
                                     </div>

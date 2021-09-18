@@ -124,7 +124,7 @@ checkLogin();
                                                 </td>
                                                 <td><?= date('d-M-Y h:i a', strtotime($item['created_at'])) ?></td>
                                                 <td>
-                                                    <a href="<?= SITE_URL ?>/doctor/report_view.php?id=<?= $item['id'] ?>"
+                                                    <a href="<?= SITE_URL ?>/report_view.php?id=<?= $item['id'] ?>" target="_blank"
                                                        class="text-primary">
                                                         <span data-feather="eye"></span> View
                                                     </a>

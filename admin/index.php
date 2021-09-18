@@ -2,7 +2,8 @@
 $pageTitle = "Dashboard";
 require_once dirname(__DIR__) . '/includes/header.php';
 checkLogin();
-$data = $getSingleData("SELECT DAYNAME(appoint_date) as day , COUNT(id) as total FROM `appointment` GROUP BY DAYNAME(appoint_date)");
+$data = $getSingleData("SELECT  DAYNAME(appoint_date) as day , COUNT(id) as total FROM `appointment` WHERE appoint_date > DATE_SUB('$timestamp', INTERVAL 1 WEEK)  GROUP BY DAYNAME(appoint_date)");
+
 ?>
 <?php require_once('includes/header.php') ?>
 
@@ -14,7 +15,6 @@ $data = $getSingleData("SELECT DAYNAME(appoint_date) as day , COUNT(id) as total
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Dashboard</h1>
             </div>
-
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
         </main>
@@ -30,23 +30,9 @@ $data = $getSingleData("SELECT DAYNAME(appoint_date) as day , COUNT(id) as total
         let myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [
-                    'Saturday',
-                    'Sunday',
-                    'Monday',
-                    'Tuesday',
-                    'Wednesday',
-                    'Thursday'
-                ],
+                labels: [<?= json_encode($data['day']) ?>],
                 datasets: [{
-                    data: [
-                        15339,
-                        21345,
-                        18483,
-                        24003,
-                        23489,
-                        24092
-                    ],
+                    data: [<?= json_encode($data['total']) ?>],
                     lineTension: 0,
                     backgroundColor: 'transparent',
                     borderColor: '#007bff',

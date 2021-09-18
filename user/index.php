@@ -34,7 +34,6 @@ checkLogin();
                         <tbody>
 						<?php
 						$data = MySQLDataPagination("SELECT * FROM appointment WHERE user_id = $_SESSION[id] ORDER BY id DESC");
-
 						if (!$data['content']) :
 							?>
                             <tr>
@@ -45,6 +44,10 @@ checkLogin();
 								<?php
 								$app_date = strtotime($item['appoint_date']);
 								$status = $app_date < time() || !$item['status'] ? "<i class='far fa-times-circle text-danger'></i>" : "<i class='fas fa-check-circle text-success'></i>";
+								$hasReport = $getSingleData("SELECT COUNT(id) as found FROM `report` WHERE appoint_id = $item[id]");
+								if ($hasReport['found']) {
+									$status = "<i class='fas fa-check-circle text-success'></i>";
+								}
 								?>
                                 <tr>
                                     <td><?= $item['id'] ?></td>

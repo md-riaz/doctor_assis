@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Report";
-require_once dirname(__DIR__) . '/includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 checkLogin();
 
 $id = $_GET['id']??null;
@@ -18,7 +18,7 @@ $chamberTime = GetData("SELECT h.name as hospital, ca.time_from, ca.time_to FROM
 ?>
 
 
-<div id="print_view" class="p-4 bg-white mx-auto" style="max-width: 800px;">
+<div id="print_view" class="p-4 bg-white mx-auto" style="width: 800px;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
