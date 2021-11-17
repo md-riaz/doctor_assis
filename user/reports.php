@@ -41,7 +41,7 @@ checkLogin();
                                         <td><?= $item['doctor'] ?></td>
                                         <td><?= date('d-M-Y', strtotime($item['created_at'])) ?></td>
                                         <td>
-                                            <a href="<?= SITE_URL ?>/user/report_view.php?id=<?= $item['id'] ?>" class="text-primary">
+                                            <a href="<?= SITE_URL ?>/report_view.php?id=<?= $item['id'] ?>" class="text-primary">
                                                 <span data-feather="eye"></span> View
                                             </a>
                                         </td>

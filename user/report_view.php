@@ -4,5 +4,5 @@ $id = $_GET['id']??null;
 
 $q = $con->query("SELECT prescription FROM report WHERE id = $id")->fetch_assoc();
 
-echo $q['prescription'];
+echo htmlspecialchars_decode($q['prescription']);
 exit();
